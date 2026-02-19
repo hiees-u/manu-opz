@@ -9,9 +9,6 @@ const items = computed(() =>
     )
   )
 )
-
-logCustomer(navigationItems)
-logCustomer(items)
 </script>
 
 <template>
