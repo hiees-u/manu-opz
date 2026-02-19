@@ -6,12 +6,12 @@ import type { Permission } from "~/utils/types/permission";
 export const useAuthStore = defineStore("auth", () => {
   const user = ref<AuthResponse | null>(null);
 
-  const isAuthenticated = computed(() => user.value !== null);
+  const isAuthenticated = computed(() => user.value != null);
 
   const login = async (credentials: AuthRequest) => {
     try {
       const response = await AuthApi.login(credentials);
-      logCustomer(response);
+      logCustomer();
       user.value = response;
       return response;
     } catch (error) {

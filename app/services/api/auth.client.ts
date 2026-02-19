@@ -8,7 +8,7 @@ export const AuthApi = {
     const response = await $fetch<string[]>("/api/me", {
       method: "GET"
     });
-    logCustomer('Response: ', response);
+    logCustomer(response);
     return response;
   },
   login: async (request: AuthRequest): Promise<AuthResponse> => {
