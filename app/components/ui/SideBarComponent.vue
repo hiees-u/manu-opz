@@ -55,7 +55,7 @@ const logout = useUseLogout();
         :avatar="{
           src: 'https://github.com/benjamincanac.png'
         }"
-        :label="collapsed ? undefined : 'Benjamin'"
+        :label="auth.user?.user"
         color="neutral"
         variant="ghost"
         class="w-full"

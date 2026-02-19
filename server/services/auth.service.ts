@@ -41,7 +41,7 @@ async function getCustomer(token: string) {
     return {}
   
   return  {
-    userName: 'admin',
+    user: 'admin',
     permissions: [
       'user.logout',
       'view:dashboard',
