@@ -1,6 +1,6 @@
 // middleware/login.ts
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  logCustomer(`guest.ts ${from.path} -> ${to.path}`);
+  console.log(`guest.ts: ${from.path} -> ${to.path}`);
   const auth = useAuthStore();
   const toast = useToast();
 

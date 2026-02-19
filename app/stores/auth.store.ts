@@ -20,6 +20,16 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
+  const logout = async () => {
+    try {
+      const response = await AuthApi.logout();
+      logCustomer(response);
+      clear();
+    } catch (err) {
+      logCustomer('Logout faile: ', err)
+    }
+  }
+
   const hasPermission = (p: Permission) => user.value?.permissions.includes(p);
 
   const setLogin =(me: AuthResponse) => {
@@ -33,6 +43,7 @@ export const useAuthStore = defineStore("auth", () => {
   return {
     user,
     login,
+    logout,
     clear,
     setLogin,
     isAuthenticated,
