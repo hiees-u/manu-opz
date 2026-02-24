@@ -12,6 +12,7 @@ import BannerLoginSkeletonVue from "~/components/skeletons/BannerLoginSkeleton.v
 
 definePageMeta({
   middleware: 'guest',
+  layout: 'auth'
 })
 
 const mount = ref(false);

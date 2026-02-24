@@ -5,12 +5,13 @@ export const navigationItems: NavigationMenuItem[][] = [[{
   label: 'Dashboard',
   icon: 'i-lucide-house',
   permission: Permission.Dashboard_View,
-  active: true
+  active: true,
+  to: '/'
 }, {
   label: 'Orders',
   icon: 'i-lucide-inbox',
   permission: Permission.Orders_View,
-  active: false
+  active: false,
 }, {
   label: 'Production',
   permission: Permission.Production_View,
@@ -21,9 +22,11 @@ export const navigationItems: NavigationMenuItem[][] = [[{
   permission: Permission.Inventory_View,
   defaultOpen: true,
   children: [{
-    label: 'General'
+    label: 'General',
+    to: '/pageB'
   }, {
-    label: 'Members'
+    label: 'Members',
+    to: '/pageA'
   }, {
     label: 'Notifications'
   }]

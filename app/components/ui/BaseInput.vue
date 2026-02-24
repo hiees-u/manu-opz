@@ -191,8 +191,6 @@ const togglePasswordVisibility = () => {
 };
 
 onMounted(() => {
-  console.log(inputRef.value);
-  
   inputRef.value?.focus;
 })
 </script>

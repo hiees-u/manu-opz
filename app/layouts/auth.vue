@@ -1,7 +1,5 @@
-<!-- layouts\default.vue -->
 <template>
   <div class="wrapper-layout">
-    <UiSideBarComponent></UiSideBarComponent>
     <slot />
   </div>
 </template>

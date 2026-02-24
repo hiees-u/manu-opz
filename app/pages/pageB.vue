@@ -1,13 +1,11 @@
 <template>
   <div class="wrapper">
+    <h1>HIU DEP TRAI</h1>
   </div>
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-  middleware: 'auth',
-  ssr: true,
-});
+
 </script>
 
 <style>

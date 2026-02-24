@@ -1,3 +1,5 @@
+import type { AuthResponse } from "~~/types/auth/auth.response";
+
 // app\plugins\init-auth.server.ts
 export default defineNuxtPlugin(async () => {
   const auth = useAuthStore();
