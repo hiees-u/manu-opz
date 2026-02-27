@@ -5,10 +5,14 @@
 </template>
 
 <script lang="ts" setup>
-
+definePageMeta({
+  middleware: 'auth',
+  layout: 'default',
+  ssr: true,
+});
 </script>
 
-<style>
+<style scoped>
 .wrapper {
   width: 100%;
 }
