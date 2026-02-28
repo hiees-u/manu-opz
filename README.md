@@ -1,4 +1,4 @@
-# Nuxt Minimal Starter [GROK](https://grok.com/share/c2hhcmQtNA_e8311c4a-55c5-42a8-8322-c07ea1695b80)
+# Nuxt Minimal Starter [GROK](https://grok.com/share/c2hhcmQtNA_e8311c4a-55c5-42a8-8322-c07ea1695b80) [Image](https://grok.com/imagine/post/9270b453-5e7a-4461-bb76-283755d86cb7?action=img_edit)
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
