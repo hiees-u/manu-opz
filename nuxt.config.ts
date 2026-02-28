@@ -3,6 +3,11 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      projectName: ''
+    }
+  },
   app: {
     head: {
       link: [
@@ -14,7 +19,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@pinia/nuxt',
     '@nuxt/icon',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@vueuse/nuxt',
   ],
   css: [
     '~/assets/css/main.css'

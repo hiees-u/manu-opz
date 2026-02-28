@@ -1,8 +1,8 @@
 // server\services\auth.service.ts
 import { AuthRequest } from "../../types/auth/auth.request";
-import { AuthResponse } from "../utils/authResponse";
+import { AuthServerResponse } from "../../types/auth/auth.server.response";
 
-function login(auth: AuthRequest): AuthResponse {
+function login(auth: AuthRequest): AuthServerResponse {
   const { username, password } = auth;
   console.log('auth.service.ts ', username, password);
   

@@ -3,13 +3,24 @@
   <div class="wrapper-layout">
     <UiSideBarComponent></UiSideBarComponent>
     <div class="wrapper-content">
+      <UHeader :ui="{ root: 'mb-5', left: 'd-flex flex-col items-start' }">
+        <template #left>
+          <h1>{{ config.public.projectName }}</h1>
+          <p class="text-xs">Optimizing Manufacturing Intelligence.</p>
+        </template>
+        <template #right>
+          <ClientOnly><UBadge>{{ dateTimeNow }}</UBadge></ClientOnly>
+          <UColorModeButton />
+        </template>
+      </UHeader>
       <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-
+const config = useRuntimeConfig();
+const dateTimeNow = useClock().dateTimeNow;
 </script>
 
 <style scoped>
@@ -30,8 +41,6 @@
 .wrapper-content {
   width: 100%;
   height: 100%;
-  display: flex;
-  padding: 25px;
-  justify-content: center;
+  padding: 5px 25px 25px;
 }
 </style>

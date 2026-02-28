@@ -1,6 +1,6 @@
 # File Tree: manu-opz
 
-**Generated:** 2/18/2026, 2:49:20 PM
+**Generated:** 2/28/2026, 4:30:55 AM
 **Root Path:** `d:\Project\manu-opz`
 
 ```
@@ -19,8 +19,11 @@
 │   │       └── 📄 SideBarComponent.vue
 │   ├── 📁 composables
 │   │   ├── 📄 logCustomer.ts
-│   │   └── 📄 useLogin.ts
+│   │   ├── 📄 useClock.ts
+│   │   ├── 📄 useLogin.ts
+│   │   └── 📄 useLogout.ts
 │   ├── 📁 layouts
+│   │   ├── 📄 auth.vue
 │   │   └── 📄 default.vue
 │   ├── 📁 middleware
 │   │   ├── 📄 auth.ts
@@ -28,7 +31,11 @@
 │   │   └── 📄 permission.ts
 │   ├── 📁 pages
 │   │   ├── 📄 index.vue
-│   │   └── 📄 login.vue
+│   │   ├── 📄 login.vue
+│   │   ├── 📄 pageA.vue
+│   │   └── 📄 pageB.vue
+│   ├── 📁 plugins
+│   │   └── 📄 init-auth.server.ts
 │   ├── 📁 services
 │   │   └── 📁 api
 │   │       └── 📄 auth.client.ts
@@ -40,22 +47,27 @@
 │   │   └── 📁 types
 │   │       └── 📄 permission.ts
 │   └── 📄 app.vue
+├── 📁 ideal
+│   ├── 🖼️ new_dashboard_i.jpg
+│   ├── 🖼️ new_dashboard_ii.jpg
+│   ├── 🖼️ z7554785139733_8052732b5c5ce20af8f97ffda49a561b.jpg
+│   ├── 🖼️ z7554786451595_26589978f02ffadbb1278c89e7040782.jpg
+│   ├── 🖼️ z7554787376853_ff32cbd29d53443d1e81c061df9f30ac.jpg
+│   └── 🖼️ z7554788317000_74a5759e4c0f182b75f37ebfeccc964c.jpg
 ├── 📁 public
 │   ├── 📁 images
 │   │   └── 📁 banner-login
 │   │       └── 🖼️ banner-login.png
-│   ├── 📄 favicon.ico
+│   ├── 🖼️ favicon.png
 │   └── 📄 robots.txt
 ├── 📁 server
 │   ├── 📁 api
-│   │   ├── 📄 login.post.ts
-│   │   └── 📄 me.get.ts
-│   ├── 📁 services
-│   │   └── 📄 auth.service.ts
-│   └── 📁 utils
-│       ├── 📄 authResponse.ts
-│       ├── 📄 permission.ts
-│       └── 📄 withPermission.ts
+│   │   └── 📁 auth
+│   │       ├── 📄 login.post.ts
+│   │       ├── 📄 logout.post.ts
+│   │       └── 📄 me.get.ts
+│   └── 📁 services
+│       └── 📄 auth.service.ts
 ├── 📁 types
 │   ├── 📁 auth
 │   │   ├── 📄 auth.request.ts
