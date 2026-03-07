@@ -1,14 +1,14 @@
 <!-- app\components\ui\BaseStatCard.vue -->
 <template>
   <UCard variant="subtle" class="w-full" :ui="{ body: 'p-0 sm:p-4 relative' }">
-    
+
     <p v-if="!isLoading" class="text-lg h-6">{{ title }}</p>
     <USkeleton v-else class="w-2/3 h-6 rounded-lg" />
 
     <p v-if="!isLoading" class="text-2xl font-bold my-2">
       {{ value }} <span class="text-xs">{{ unit }}</span>
     </p>
-    <USkeleton v-else class="w-1/2 h-6 rounded-lg my-2" />
+    <USkeleton v-else class="w-1/2 h-7 rounded-lg my-2" />
 
     <UBadge
       :color="trendColor"
