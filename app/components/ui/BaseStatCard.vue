@@ -1,19 +1,32 @@
 <!-- app\components\ui\BaseStatCard.vue -->
 <template>
-  <UCard variant="subtle" class="w-50" :ui="{ body: 'p-0 sm:p-4 relative' }">
-    <p class="text-lg">{{ title }}</p>
-    <p class="text-2xl font-bold my-2">
+  <UCard variant="subtle" class="w-full" :ui="{ body: 'p-0 sm:p-4 relative' }">
+    
+    <p v-if="!isLoading" class="text-lg h-6">{{ title }}</p>
+    <USkeleton v-else class="w-2/3 h-6 rounded-lg" />
+
+    <p v-if="!isLoading" class="text-2xl font-bold my-2">
       {{ value }} <span class="text-xs">{{ unit }}</span>
     </p>
-    <UBadge :color="trendColor" variant="soft" v-if="trend !== undefined">
+    <USkeleton v-else class="w-1/2 h-6 rounded-lg my-2" />
+
+    <UBadge
+      :color="trendColor"
+      variant="soft"
+      v-if="trend !== undefined && !isLoading"
+    >
       <UIcon :name="trendIcon" class="w-4 h-4 mr-1" />
       {{ trendText }}
     </UBadge>
+    <USkeleton v-else class="w-3/4 h-6 rounded-lg" />
+
     <div
-      class="p-3 rounded-lg max-w-md w-10 h-10 flex items-center justify-center absolute top-5 right-5"
+      class="rounded-lg max-w-md w-10 h-10 flex items-center justify-center absolute top-5 right-5"
     >
-      <slot name="icon" />
+      <slot v-if="!isLoading" name="icon" />
+      <USkeleton v-else class="w-full h-full rounded-lg" />
     </div>
+
   </UCard>
 </template>
 
@@ -27,15 +40,18 @@ interface Props {
   trend?: number;
   unitTrend?: string;
   trendLabel?: string;
+  isLoading?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   unit: "",
   unitTrend: "",
   trendLabel: "",
+  isLoading: false,
 });
 
-const { title, value, unit, trend, unitTrend, trendLabel } = toRefs(props);
+const { title, value, unit, trend, unitTrend, trendLabel, isLoading } =
+  toRefs(props);
 
 const trendIcon = computed(() => {
   if (trend.value === undefined) return "";

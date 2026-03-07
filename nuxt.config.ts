@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@vueuse/nuxt',
+    'nuxt-charts',
   ],
   css: [
     '~/assets/css/main.css'
