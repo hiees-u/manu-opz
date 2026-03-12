@@ -134,7 +134,7 @@
         />
       </div>
       <div class="col-span-1 row-span-2">
-        <UiPassRateGaugeComponent />
+        <UiPassRateGaugeComponent :is-loading="!mounted" />
       </div>
       <div class="col-span-2 row-span-2">
         <USkeleton class="w-full h-[70%]" />
