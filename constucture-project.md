@@ -1,6 +1,6 @@
 # File Tree: manu-opz
 
-**Generated:** 2/28/2026, 4:30:55 AM
+**Generated:** 3/13/2026, 6:18:05 PM
 **Root Path:** `d:\Project\manu-opz`
 
 ```
@@ -16,6 +16,10 @@
 │   │   │   └── 📄 LoginFormSkeleton.vue
 │   │   └── 📁 ui
 │   │       ├── 📄 BaseInput.vue
+│   │       ├── 📄 BaseStatCard.vue
+│   │       ├── 📄 OEEOverrideComponent.vue
+│   │       ├── 📄 OrderPipelineStatusCardComponent.vue
+│   │       ├── 📄 PassRateGaugeComponent.vue
 │   │       └── 📄 SideBarComponent.vue
 │   ├── 📁 composables
 │   │   ├── 📄 logCustomer.ts
@@ -45,6 +49,9 @@
 │   │   ├── 📁 constants
 │   │   │   └── 📄 navigation.ts
 │   │   └── 📁 types
+│   │       ├── 📁 props
+│   │       │   └── 📄 passRateGaugeProps.ts
+│   │       ├── 📄 icon.ts
 │   │       └── 📄 permission.ts
 │   └── 📄 app.vue
 ├── 📁 ideal
@@ -71,7 +78,8 @@
 ├── 📁 types
 │   ├── 📁 auth
 │   │   ├── 📄 auth.request.ts
-│   │   └── 📄 auth.response.ts
+│   │   ├── 📄 auth.response.ts
+│   │   └── 📄 auth.server.response.ts
 │   └── 📄 api.response.ts
 ├── ⚙️ .gitignore
 ├── 📝 README.md

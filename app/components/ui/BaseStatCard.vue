@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { TREND_ICONS } from "~/utils/types/icon";
+import { TREND_ICONS } from "~/utils/constants/icon";
 
 interface Props {
   title: string;

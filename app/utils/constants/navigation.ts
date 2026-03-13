@@ -1,5 +1,5 @@
 import type { NavigationMenuItem } from "@nuxt/ui";
-import { Permission } from "../types/permission";
+import { Permission } from "./permission";
 
 export const navigationItems: NavigationMenuItem[][] = [[{
   label: 'Dashboard',

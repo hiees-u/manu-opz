@@ -1,7 +1,7 @@
 import { AuthApi } from "~/services/api/auth.client";
 import type { AuthResponse } from "~~/types/auth/auth.response";
 import type { AuthRequest } from "~~/types/auth/auth.request";
-import type { Permission } from "~/utils/types/permission";
+import type { Permission } from "~/utils/constants/permission";
 
 export const useAuthStore = defineStore("auth", () => {
   const user = ref<AuthResponse | null>(null);
