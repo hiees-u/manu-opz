@@ -62,7 +62,7 @@
         </UiBaseStatCard>
       </div>
       <div class="col-span-2 row-span-2">
-        <USkeleton class="w-full h-full" />
+        <UiBusinessPerformanceWidgetComponent :is-loading="!mounted" />
       </div>
       <div class="">
         <UiBaseStatCard
