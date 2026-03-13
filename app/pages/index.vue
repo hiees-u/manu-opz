@@ -134,10 +134,10 @@
         />
       </div>
       <div class="col-span-1 row-span-2">
-        <UiPassRateGaugeComponent :is-loading="!mounted" />
+        <UiPassRateGaugeComponent :is-loading="!mounted" :processing="102" />
       </div>
       <div class="col-span-2 row-span-2">
-        <USkeleton class="w-full h-[70%]" />
+        <UiOrderPipelineStatusCardComponent :is-loading="!mounted" :revenue="revenue" />
       </div>
     </div>
   </UContainer>
@@ -151,6 +151,15 @@ definePageMeta({
 });
 
 const mounted = ref(false);
+
+const revenue = ref([
+  { status: "Pending", value: 100 },
+  { status: "Processing", value: 90 },
+  { status: "QC Check", value: 50 },
+  { status: "Packaging", value: 15 },
+  { status: "Shipped", value: 77 },
+  { status: "Delivered", value: 89 },
+]);
 
 onMounted(() => {
   mounted.value = true;
