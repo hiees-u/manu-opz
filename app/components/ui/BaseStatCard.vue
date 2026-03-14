@@ -21,7 +21,7 @@
     <USkeleton v-else class="w-3/4 h-6 rounded-lg" />
 
     <div
-      class="rounded-lg max-w-md w-10 h-10 flex items-center justify-center absolute top-5 right-5"
+      class="rounded-lg max-w-md w-10 h-10 flex items-center justify-center absolute top-5 right-4"
     >
       <slot v-if="!isLoading" name="icon" />
       <USkeleton v-else class="w-full h-full rounded-lg" />
