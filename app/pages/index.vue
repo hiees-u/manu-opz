@@ -134,7 +134,7 @@
         />
       </div>
       <div class="col-span-1 row-span-2">
-        <UiPassRateGaugeComponent :is-loading="!mounted" :processing="102" />
+        <UiPassRateGaugeComponent :is-loading="!mounted" :processing="94.5" />
       </div>
       <div class="col-span-2 row-span-2">
         <UiOrderPipelineStatusCardComponent :is-loading="!mounted" :revenue="revenue" />

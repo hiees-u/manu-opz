@@ -48,11 +48,11 @@ const data = [
 const categories = {
   NotStarted: {
     name: 'Not Started',
-    color: 'var(--color-green-300)'
+    color: 'var(--color-green-200)'
   },
   Processing: {
     name: 'Processing',
-    color: 'var(--color-green-400)'
+    color: 'var(--color-green-500)'
   },
 }
 </script>
