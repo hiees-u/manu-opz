@@ -1,6 +1,7 @@
 <template>
   <UContainer>
-    <div class="grid grid-cols-5 grid-rows-[130px_130px_250px] gap-4">
+    <UiFiltersComponent />
+    <div class="grid grid-cols-5 gap-4">
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Total's Orders"

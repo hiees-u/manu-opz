@@ -13,6 +13,7 @@ const ICONS = {
   close: 'fa6-solid:xmark',
   eye: 'fa6-solid:eye',
   eyeSlash: 'fa6-solid:eye-slash',
+  filters: 'material-symbols:filter-alt-outline-sharp',
 }
 
 export { TREND_ICONS, ICONS };
