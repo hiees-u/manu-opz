@@ -58,7 +58,7 @@ const { isLoading } = toRefs(props);
         :hide-legend="false"
       />
       <div class="w-full flex justify-end mt-5">
-        <UBadge color="secondary"><button>See Details</button></UBadge>
+        <UBadge color="secondary"><button class="cursor-pointer">See Details</button></UBadge>
       </div>
     </template>
     <template v-else>
