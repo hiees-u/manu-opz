@@ -5,7 +5,7 @@
       <p class="text-lg">Gauge for Pass Rate</p>
       <DonutChart
         :data="data.map((i) => i.percentage)"
-        :height="175"
+        :height="155"
         :categories="categories"
         :hide-legend="true"
         :type="DonutType.Full"
@@ -21,7 +21,7 @@
     </template>
     <template v-else>
       <USkeleton class="w-full h-8 mb-2 rounded-lg" />
-      <USkeleton class="w-full aspect-square rounded-full" />
+      <USkeleton class="w-35 h-35 aspect-square rounded-full" />
       <USkeleton class="ml-auto w-20 h-7 mb-5 rounded-lg" />
     </template>
   </UContainer>

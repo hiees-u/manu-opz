@@ -46,7 +46,7 @@ const { isLoading } = toRefs(props);
     <template v-if="!isLoading">
       <BarChart
         :data="RevenueData"
-        :height="200"
+        :height="185"
         :categories="RevenueCategories"
         :y-axis="['value']"
         :x-num-ticks="6"
@@ -67,12 +67,12 @@ const { isLoading } = toRefs(props);
       </div>
       <div class="flex justify-evenly max-h-50 h-full">
         <div></div>
-        <USkeleton class="w-13 h-50 rounded-lg" />
-        <USkeleton class="w-13 h-50 rounded-lg" />
-        <USkeleton class="w-13 h-50 rounded-lg" />
-        <USkeleton class="w-13 h-50 rounded-lg" />
-        <USkeleton class="w-13 h-50 rounded-lg" />
-        <USkeleton class="w-13 h-50 rounded-lg" />
+        <USkeleton class="w-13 h-45 rounded-lg" />
+        <USkeleton class="w-13 h-45 rounded-lg" />
+        <USkeleton class="w-13 h-45 rounded-lg" />
+        <USkeleton class="w-13 h-45 rounded-lg" />
+        <USkeleton class="w-13 h-45 rounded-lg" />
+        <USkeleton class="w-13 h-45 rounded-lg" />
       </div>
       <USkeleton class="ml-auto w-20 h-7 mt-3 mb-2 me-3 rounded-lg" />
     </template>
