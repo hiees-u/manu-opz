@@ -131,6 +131,7 @@
           :perf="80"
           :qual="95"
           :trend="-2"
+          :is-loading="!mounted"
         />
       </div>
       <div class="col-span-1 row-span-2">
