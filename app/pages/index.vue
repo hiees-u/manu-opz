@@ -14,7 +14,7 @@
           <template #icon>
             <UBadge color="success" variant="soft">
               <UIcon
-                name="material-symbols:orders-outline-rounded"
+                :name="ICONS.orders"
                 class="w-5 h-5 text-green-600"
               />
             </UBadge>
@@ -34,7 +34,7 @@
           <template #icon>
             <UBadge color="warning" variant="soft">
               <UIcon
-                name="i-heroicons-chart-bar"
+                :name="ICONS.ordersAnalytics"
                 class="w-5 h-5 text-yellow-600"
               />
             </UBadge>
@@ -54,7 +54,7 @@
           <template #icon>
             <UBadge color="success" variant="soft">
               <UIcon
-                name="ic:twotone-watch-later"
+                :name="ICONS.watchTime"
                 class="w-5 h-5 text-green-600"
               />
             </UBadge>
@@ -77,7 +77,7 @@
           <template #icon>
             <UBadge color="success" variant="soft">
               <UIcon
-                name="i-heroicons-chart-bar"
+                :name="ICONS.ordersAnalytics"
                 class="w-5 h-5 text-green-600"
               />
             </UBadge>
@@ -97,7 +97,7 @@
           <template #icon>
             <UBadge color="error" variant="soft">
               <UIcon
-                name="tabler:truck-delivery"
+                :name="ICONS.truckDelivery"
                 class="w-5 h-5 text-red-500"
               />
             </UBadge>
@@ -117,7 +117,7 @@
           <template #icon>
             <UBadge color="warning" variant="soft">
               <UIcon
-                name="fluent:line-horizontal-5-error-20-filled"
+                :name="ICONS.defectRate"
                 class="w-5 h-5 text-yellow-600"
               />
             </UBadge>
@@ -145,6 +145,8 @@
 </template>
 
 <script lang="ts" setup>
+import { ICONS } from "@/utils/constants/icon";
+
 definePageMeta({
   middleware: "auth",
   layout: "default",

@@ -3,4 +3,12 @@ const TREND_ICONS = {
   down: "i-heroicons-arrow-trending-down",
 };
 
-export { TREND_ICONS };
+const ICONS = {
+  orders: 'material-symbols:orders-outline-rounded',
+  ordersAnalytics: 'i-heroicons-chart-bar',
+  watchTime: 'ic:twotone-watch-later',
+  truckDelivery: 'tabler:truck-delivery',
+  defectRate: 'fluent:line-horizontal-5-error-20-filled',
+}
+
+export { TREND_ICONS, ICONS };
