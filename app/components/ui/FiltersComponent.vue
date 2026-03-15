@@ -8,14 +8,14 @@
       <UIcon :name="ICONS.filters" class="mr-1 size-4" />
       Filters:
       <USelect
-      variant="subtle"
+        variant="subtle"
         arrow
         v-model="selecterDayValue"
         :items="selecterDay"
         class="ml-2"
       />
       <USelect
-      variant="subtle"
+        variant="subtle"
         arrow
         placeholder="All Products"
         v-model="selecterProductsValue"
