@@ -16,7 +16,6 @@ const logout = useUseLogout();
 <template>
   <UDashboardSidebar collapsible resizable :ui="{ footer: 'border-t border-default' }">
     <template #header="{ collapsed }">
-      <!-- <UIcon name="i-simple-icons-nuxtdotjs" class="size-5 text-primary mx-auto" /> -->
       <NuxtImg src="favicon.png" width="60"/>
     </template>
 

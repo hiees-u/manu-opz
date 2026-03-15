@@ -9,6 +9,10 @@ const ICONS = {
   watchTime: 'ic:twotone-watch-later',
   truckDelivery: 'tabler:truck-delivery',
   defectRate: 'fluent:line-horizontal-5-error-20-filled',
+  warning: 'fa-solid:exclamation-triangle',
+  close: 'fa6-solid:xmark',
+  eye: 'fa6-solid:eye',
+  eyeSlash: 'fa6-solid:eye-slash',
 }
 
 export { TREND_ICONS, ICONS };

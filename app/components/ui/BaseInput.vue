@@ -38,7 +38,7 @@
         }"
       >
         <span v-if="props.isError" class="icon-error">
-          <Icon name="fa-solid:exclamation-triangle" />
+          <UIcon :name="ICONS.warning" />
         </span>
       </UTooltip>
     </div>
@@ -50,12 +50,12 @@
       "
       @click="togglePasswordVisibility"
     >
-      <Icon
-        name="fa6-solid:eye"
+      <UIcon
+        :name="ICONS.eye"
         :class="!showPassword && showPasswordVisibilityButton ? 'active' : ''"
       />
-      <Icon
-        name="fa6-solid:eye-slash"
+      <UIcon
+        :name="ICONS.eyeSlash"
         :class="showPassword && showPasswordVisibilityButton ? 'active' : ''"
       />
     </button>
@@ -63,12 +63,14 @@
       :class="showResetButton ? 'btn-reset active' : 'btn-reset'"
       @click="onReset"
     >
-      <Icon name="fa6-solid:xmark" />
+      <UIcon :name="ICONS.close" />
     </button>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ICONS } from "@/utils/constants/icon";
+
 const props = defineProps({
   modelValue: {
     type: String,
