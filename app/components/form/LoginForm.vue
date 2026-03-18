@@ -23,7 +23,7 @@
       :show-button-password="true"
       :place-holder="'Enter your password...'"
     ></UiBaseInput>
-    <button class="login-button" @click="login(userRequest)">Login</button>
+    <button class="login-button" @click="onSubmit">Login</button>
   </div>
 </template>
 
@@ -31,9 +31,13 @@
 import type { AuthRequest } from "~~/types/auth/auth.request";
 import LoginFormSkeleton from "../skeletons/LoginFormSkeleton.vue";
 
-const userRequest = reactive<AuthRequest>({ username: "", password: "" });
-const login = useLogin();
+const emit = defineEmits(['submit']);
 const mounted = ref(false);
+const userRequest = reactive<AuthRequest>({ username: "", password: "" });
+
+const onSubmit = () => {
+  emit('submit', userRequest);
+}
 
 onMounted(() => {
   mounted.value = true;

@@ -16,8 +16,6 @@ export const useLogin = () => {
         icon: "heroicons:check-circle",
         description: 'Login Success...',
       });
-
-      if (authStore.isAuthenticated) navigateTo("/");
     } catch (e) {
       const err = e as FetchError;
 
