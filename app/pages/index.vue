@@ -1,6 +1,11 @@
 <template>
   <UContainer>
-    <UiFiltersComponent />
+    <UiFiltersComponent
+      :selecterValue="selecterCategoriesValue"
+      :isLoading="isfetchSelectCategories"
+      v-model:selected-value="selectedCategories"
+      @search-term-change="onChangeFilterCategorySelector"
+    />
     <div class="grid grid-cols-5 gap-4">
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
@@ -14,10 +19,7 @@
         >
           <template #icon>
             <UBadge color="success" variant="soft">
-              <UIcon
-                :name="ICONS.orders"
-                class="w-5 h-5 text-green-600"
-              />
+              <UIcon :name="ICONS.orders" class="w-5 h-5 text-green-600" />
             </UBadge>
           </template>
         </UiBaseStatCard>
@@ -54,10 +56,7 @@
         >
           <template #icon>
             <UBadge color="success" variant="soft">
-              <UIcon
-                :name="ICONS.watchTime"
-                class="w-5 h-5 text-green-600"
-              />
+              <UIcon :name="ICONS.watchTime" class="w-5 h-5 text-green-600" />
             </UBadge>
           </template>
         </UiBaseStatCard>
@@ -97,10 +96,7 @@
         >
           <template #icon>
             <UBadge color="error" variant="soft">
-              <UIcon
-                :name="ICONS.truckDelivery"
-                class="w-5 h-5 text-red-500"
-              />
+              <UIcon :name="ICONS.truckDelivery" class="w-5 h-5 text-red-500" />
             </UBadge>
           </template>
         </UiBaseStatCard>
@@ -117,10 +113,7 @@
         >
           <template #icon>
             <UBadge color="warning" variant="soft">
-              <UIcon
-                :name="ICONS.defectRate"
-                class="w-5 h-5 text-yellow-600"
-              />
+              <UIcon :name="ICONS.defectRate" class="w-5 h-5 text-yellow-600" />
             </UBadge>
           </template>
         </UiBaseStatCard>
@@ -139,7 +132,10 @@
         <UiPassRateGaugeComponent :is-loading="!mounted" :processing="94.5" />
       </div>
       <div class="col-span-2 row-span-2">
-        <UiOrderPipelineStatusCardComponent :is-loading="!mounted" :revenue="revenue" />
+        <UiOrderPipelineStatusCardComponent
+          :is-loading="!mounted"
+          :revenue="revenue"
+        />
       </div>
     </div>
   </UContainer>
@@ -148,6 +144,9 @@
 <script lang="ts" setup>
 import { ICONS } from "@/utils/constants/icon";
 
+import type { SelectMenuItem } from "@nuxt/ui";
+import type { CategoryRequest } from "~~/types/category/category.request";
+
 definePageMeta({
   middleware: "auth",
   layout: "default",
@@ -155,7 +154,7 @@ definePageMeta({
 });
 
 const mounted = ref(false);
-
+const search = ref('');
 const revenue = ref([
   { status: "Pending", value: 100 },
   { status: "Processing", value: 90 },
@@ -164,8 +163,36 @@ const revenue = ref([
   { status: "Shipped", value: 77 },
   { status: "Delivered", value: 89 },
 ]);
+const selectedCategories = ref<SelectorItem[]>([]);
 
-onMounted(() => {
+const { data: categories, pending, refresh } = await useAsyncData(
+  'categories',
+  () =>
+    getCategories({
+      page: 1,
+      pageSize: 5,
+      filters: {
+        ...(search.value ? { obj_name: search.value } : {}),
+      },
+    } as CategoryRequest),
+  {
+    watch: [search],
+  }
+);
+
+const selecterCategoriesValue = computed<SelectMenuItem[]>(() =>
+  (categories.value ?? []).map((cate) => ({
+    label: cate.obj_name,
+    id: cate.obj_id,
+  }))
+);
+const isfetchSelectCategories = computed(() => pending.value);
+
+const onChangeFilterCategorySelector = (value: string) => {
+  search.value = value;
+};
+
+onMounted(async () => {
   mounted.value = true;
 });
 </script>

@@ -23,6 +23,7 @@ const login = useLogin();
 
 const handleLogin = async(data: AuthRequest) => {
   await login(data);
+  logCustomer(authStore.isAuthenticated);
   if (authStore.isAuthenticated) navigateTo("/");
 }
 

@@ -11,8 +11,8 @@ export const useAuthStore = defineStore("auth", () => {
   const login = async (credentials: AuthRequest) => {
     try {
       const response = await AuthApi.login(credentials);
-      logCustomer();
-      user.value = response;
+      logCustomer(response);
+      user.value = response.data;
       return response;
     } catch (error) {
       user.value = null;

@@ -2,39 +2,78 @@
   <UBadge
     color="neutral"
     variant="outline"
-    class="mb-5 py-2 px-5 w-full flex items-center justify-between"
+    class="mb-5 py-2 px-5 w-full max-w-xl"
   >
-    <div>
-      <UIcon :name="ICONS.filters" class="mr-1 size-4" />
-      Filters:
-      <USelect
-        variant="subtle"
-        arrow
-        v-model="selecterDayValue"
-        :items="selecterDay"
-        class="ml-2"
-      />
-      <USelect
-        variant="subtle"
-        arrow
-        placeholder="All Products"
-        v-model="selecterProductsValue"
-        :items="selecterProducts"
-        multiple
-        class="ml-2"
-      />
+    <div class="max-w-full">
+      <ClientOnly v-if="isMounted">
+        <UTooltip :text="tooltipMessage" :delay-duration="15" :content="{ align: 'center', side: 'top'}" arrow>
+          <USelectMenu
+            variant="subtle"
+            arrow
+            placeholder="All Categories"
+            v-model="modelValue"
+            :items="selecterValue"
+            multiple
+            class="min-w-32 max-w-full"
+            :highlight="false"
+            :search-input="{ placeholder: 'Tìm kiếm sản phẩm...' }"
+            clear
+            @update:search-term="onSearch"
+            loading-icon="i-lucide-loader"
+            :loading="isLoading"
+          />
+        </UTooltip>
+      </ClientOnly>
+      <div v-else>
+        <USkeleton class="ml-2 min-w-32 h-8"></USkeleton>
+      </div>
     </div>
   </UBadge>
 </template>
 
 <script lang="ts" setup>
-import { ICONS } from "~/utils/constants/icon";
+import type { SelectMenuItem } from "@nuxt/ui";
 
-const selecterDay = ref(["day", "week", "month", "year"]);
-const selecterProducts = ref(["product2", "product3"]);
+const isMounted = ref<boolean>(false);
 
-const selecterDayValue = ref("day");
-const selecterProductsValue = ref([]);
+const props = withDefaults(
+  defineProps<{
+    selecterValue: SelectMenuItem[];
+    selectedValue: SelectorItem[];
+    isLoading: boolean;
+  }>(),
+  {
+    selecterValue: () => [],
+    selectedValue: () => [],
+    isLoading: false,
+  },
+);
+
+const modelValue = computed({
+  get: () => props.selectedValue,
+  set: (val: string[]) => {
+    emit("update:selectedValue", val);
+    console.log("SELECTED");
+  },
+});
+
+const tooltipMessage = computed(() => {
+  return props.selectedValue.map(item => item.label || '').join(", ")
+});
+
+const emit = defineEmits<{
+  (e: "searchTermChange", value: string): void;
+  (e: "update:selectedValue", value: string[]): void;
+}>();
+
+const onSearch = useDebounceFn((val: string) => {
+  console.log("Combobox Search:", val);
+  emit("searchTermChange", val);
+}, 500);
+
+onMounted(() => {
+  isMounted.value = true;
+});
 </script>
 
 <style></style>
