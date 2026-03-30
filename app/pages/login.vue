@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <BannerLoginSkeletonVue v-if="!mount" />
-    <NuxtImg v-else src="/images/banner-login/banner-login.png" :width="500" alt="Logo" preload priority/>
+    <NuxtImg v-else src="/images/banner-login/banner-login.png" :width="500" alt="Logo" preload priority fetchpriority="high"/>
     <LoginForm @submit="handleLogin" />
   </div>
 </template>
