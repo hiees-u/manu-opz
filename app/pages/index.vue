@@ -1,12 +1,43 @@
 <template>
   <UContainer>
-    <UiFiltersComponent
-      :selecterValue="selecterCategoriesValue"
-      :isLoading="isfetchSelectCategories"
-      v-model:selected-value="selectedCategories"
-      @search-term-change="onChangeFilterCategorySelector"
-    />
-    <div class="grid grid-cols-5 gap-4">
+    <!-- filters -->
+    <UBadge color="neutral" variant="outline" :ui="{ base: 'w-full' }">
+      <div class="flex items-center py-2 px-3 gap-3">
+        <UIcon :name="ICONS.filters" class="size-7" />
+        <p class="text-base">Filters:</p>
+        <UiSelectorComponent
+          :selecterValue="selecterDayValue"
+          :multi-select="false"
+          place-holder="Select Day"
+          v-model:selected-value="selectedDay"
+          @search-term-change="onChangeFilterCategorySelector"
+          class="max-w-50"
+        />
+        <UiSelectorComponent
+          :selecterValue="selecterCategoriesValue"
+          :isLoading="isfetchSelectCategories"
+          :multi-select="true"
+          v-model:selected-value="selectedCategories"
+          @search-term-change="onChangeFilterCategorySelector"
+          @update:open="
+            (val) => {
+              isOpenCategorySelector = val;
+            }
+          "
+          @update:cursor="
+            (val) => {
+              cursorCategoryNext = val;
+              console.log('đã nhận cursor mới: ', val);
+            }
+          "
+          class="max-w-50"
+
+        />
+      </div>
+    </UBadge>
+
+    <!--  -->
+    <div class="grid grid-cols-5 mt-5 gap-4">
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Total's Orders"
@@ -145,6 +176,7 @@
 import { ICONS } from "@/utils/constants/icon";
 
 import type { SelectMenuItem } from "@nuxt/ui";
+import type { Category } from "~~/types/category/category.model";
 import type { CategoryRequest } from "~~/types/category/category.request";
 
 definePageMeta({
@@ -154,7 +186,7 @@ definePageMeta({
 });
 
 const mounted = ref(false);
-const search = ref('');
+const search = ref("");
 const revenue = ref([
   { status: "Pending", value: 100 },
   { status: "Processing", value: 90 },
@@ -163,34 +195,89 @@ const revenue = ref([
   { status: "Shipped", value: 77 },
   { status: "Delivered", value: 89 },
 ]);
-const selectedCategories = ref<SelectorItem[]>([]);
 
-const { data: categories, pending, refresh } = await useAsyncData(
-  'categories',
+const isOpenCategorySelector = ref(false);
+const cursorCategoryNext = ref<string | null>(null);
+const selectedCategories = ref<SelectorItem[]>([]);
+const selectedCategoriesLimit = 10;
+const allCategories = ref<Category[]>([]);
+
+const {
+  data: categories,
+  pending,
+  refresh,
+} = await useAsyncData(
+  "categories",
   () =>
     getCategories({
       page: 1,
-      pageSize: 5,
+      cursor: cursorCategoryNext.value,
+      pageSize: selectedCategoriesLimit,
       filters: {
         ...(search.value ? { obj_name: search.value } : {}),
       },
     } as CategoryRequest),
   {
-    watch: [search],
-  }
+    immediate: false,
+    watch: [search, cursorCategoryNext],
+    default: () => [],
+  },
 );
 
 const selecterCategoriesValue = computed<SelectMenuItem[]>(() =>
-  (categories.value ?? []).map((cate) => ({
+  (allCategories.value ?? []).map((cate) => ({
     label: cate.obj_name,
     id: cate.obj_id,
-  }))
+  })),
 );
+
+watch(
+  categories,
+  (newCategories) => {
+    // search mới -> reset data cũ
+    if (!cursorCategoryNext.value || search.value) {
+      allCategories.value = newCategories ?? [];
+      return;
+    }
+
+    // load more -> chỉ append nếu API có data
+    if (newCategories && newCategories.length > 0) {
+      allCategories.value.push(...newCategories);
+    }
+  },
+  { immediate: true },
+);
+
+watch(isOpenCategorySelector, () => {
+  if (isOpenCategorySelector.value) {
+    if(allCategories.value.length === 0) {
+      refresh();
+    }
+  }
+});
+
 const isfetchSelectCategories = computed(() => pending.value);
 
 const onChangeFilterCategorySelector = (value: string) => {
   search.value = value;
 };
+
+const selectedDay = ref(null);
+
+const selecterDayValue = [
+  {
+    id: "id",
+    label: "Today",
+  },
+  {
+    id: "week",
+    label: "Week",
+  },
+  {
+    id: "month",
+    label: "Month",
+  },
+];
 
 onMounted(async () => {
   mounted.value = true;
@@ -198,3 +285,5 @@ onMounted(async () => {
 </script>
 
 <style scoped></style>
+
+<!-- https://grok.com/share/c2hhcmQtNA_b00998ec-ca4d-49e3-87f6-78f32941e9d4 -->
