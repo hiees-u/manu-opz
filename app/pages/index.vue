@@ -256,24 +256,24 @@ const onChangeFilterCategorySelector = (value: string) => {
 
 const selectedDay = ref<SelectorItem | null>({
   id: 'today',
-  label: 'today'
+  label: 'Today'
 });
 
 const selecterDayValue = [
   {
-    id: "id",
-    label: "today",
+    id: "today",
+    label: "Today",
   },
   {
     id: "week",
-    label: "week",
+    label: "Week",
   },
   {
     id: "month",
-    label: "month",
+    label: "Month",
   }, {
     id: "year",
-    label: "year",
+    label: "Year",
   }
 ];
 
