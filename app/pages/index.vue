@@ -254,32 +254,39 @@ const onChangeFilterCategorySelector = (value: string) => {
   search.value = value;
 };
 
-const selectedDay = ref(null);
+const selectedDay = ref<SelectorItem | null>({
+  id: 'today',
+  label: 'today'
+});
 
 const selecterDayValue = [
   {
     id: "id",
-    label: "Today",
+    label: "today",
   },
   {
     id: "week",
-    label: "Week",
+    label: "week",
   },
   {
     id: "month",
-    label: "Month",
-  },
+    label: "month",
+  }, {
+    id: "year",
+    label: "year",
+  }
 ];
 
 const { data: revenue } = await useAsyncData(
   'order-summary', 
   () => 
   getOrderSummary({
-    date: 'today',
+    date: selectedDay.value?.id || 'today',
     product: 'all',
   }),
   {
     immediate: true,
+    watch: [selectedDay, selectedCategories],
     default: () => ([{ status: '', value: 0 }]),
   }
 )

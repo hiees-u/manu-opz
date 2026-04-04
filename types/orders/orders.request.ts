@@ -1,5 +1,5 @@
 interface OrderSummaryRequest {
-  date: 'today' | 'week' | 'month' | 'year';
+  date: 'today' | 'week' | 'month' | 'year' | string;
   product: string | 'all';
 }
 
