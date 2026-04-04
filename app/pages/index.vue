@@ -187,14 +187,6 @@ definePageMeta({
 
 const mounted = ref(false);
 const search = ref("");
-const revenue = ref([
-  { status: "Pending", value: 100 },
-  { status: "Processing", value: 90 },
-  { status: "QC Check", value: 50 },
-  { status: "Packaging", value: 15 },
-  { status: "Shipped", value: 77 },
-  { status: "Delivered", value: 89 },
-]);
 
 const isOpenCategorySelector = ref(false);
 const cursorCategoryNext = ref<string | null>(null);
@@ -262,11 +254,14 @@ const onChangeFilterCategorySelector = (value: string) => {
   search.value = value;
 };
 
-const selectedDay = ref(null);
+const selectedDay = ref<SelectorItem | null>({
+  id: 'today',
+  label: 'Today'
+});
 
 const selecterDayValue = [
   {
-    id: "id",
+    id: "today",
     label: "Today",
   },
   {
@@ -276,8 +271,25 @@ const selecterDayValue = [
   {
     id: "month",
     label: "Month",
-  },
+  }, {
+    id: "year",
+    label: "Year",
+  }
 ];
+
+const { data: revenue } = await useAsyncData(
+  'order-summary', 
+  () => 
+  getOrderSummary({
+    date: selectedDay.value?.id || 'today',
+    product: 'all',
+  }),
+  {
+    immediate: true,
+    watch: [selectedDay, selectedCategories],
+    default: () => ([{ status: '', value: 0 }]),
+  }
+)
 
 onMounted(async () => {
   mounted.value = true;

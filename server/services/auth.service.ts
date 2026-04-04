@@ -13,7 +13,7 @@ function login(auth: AuthRequest): ApiResponse<AuthServerResponse> {
     data: {
       user: username,
       expiresIn: 3600,
-      permissions: ["user.logout", "view:dashboard", "view:inventory"],
+      permissions: ["user.logout", "view:dashboard", "view:production", "view:quality-control", "view:inventory", "view:order", "view:logistics", "view:reports", "view:system"],
       token: "mock-jwt-token",
     },
     success: true,
@@ -28,7 +28,7 @@ async function getCustomer(token: string) {
 
   return {
     user: "admin",
-    permissions: ["user.logout", "view:dashboard", "view:inventory"],
+    permissions: ["user.logout", "view:dashboard", "view:production", "view:quality-control", "view:inventory", "view:order", "view:logistics", "view:reports", "view:system"],
   };
 }
 

@@ -1,32 +1,29 @@
 <!-- app\components\ui\OrderPipelineStatusCardComponent.vue -->
 <script lang="ts" setup>
+import type { OrderSummaryResponse } from '~~/types/orders/orders.response';
+
 defineOptions({
   tags: ["barcharts", "vertical"],
 });
 
 interface Props {
   isLoading: boolean;
-  revenue: RevenueDataItem[];
-}
-
-interface RevenueDataItem {
-  status: string;
-  value: number;
+  revenue: OrderSummaryResponse;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isLoading: false,
   revenue: () => [
-    { status: "Pending", value: 100 },
-    { status: "Processing", value: 90 },
-    { status: "QC Check", value: 50 },
-    { status: "Packaging", value: 15 },
-    { status: "Shipped", value: 77 },
-    { status: "Delivered", value: 89 },
+    { status: "Pending", value: 0 },
+    { status: "Processing", value: 0 },
+    { status: "QC Check", value: 0 },
+    { status: "Packaging", value: 0 },
+    { status: "Shipped", value: 0 },
+    { status: "Delivered", value: 0 },
   ],
 });
 
-const RevenueData: RevenueDataItem[] = props.revenue;
+const { revenue } = toRefs(props);
 
 const RevenueCategories = computed(() => ({
   desktop: {
@@ -35,7 +32,7 @@ const RevenueCategories = computed(() => ({
   },
 }));
 
-const xFormatter = (i: number): string => `${RevenueData[i]?.status}`;
+const xFormatter = (i: number): string => `${revenue.value[i]?.status}`;
 const yFormatter = (tick: number) => tick.toString();
 
 const { isLoading } = toRefs(props);
@@ -45,7 +42,7 @@ const { isLoading } = toRefs(props);
   <UContainer class="px-0 sm:px-0 lg:px-0">
     <template v-if="!isLoading">
       <BarChart
-        :data="RevenueData"
+        :data="revenue"
         :height="185"
         :categories="RevenueCategories"
         :y-axis="['value']"

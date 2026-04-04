@@ -42,7 +42,7 @@ const lastEmittedCursor = ref<string | null>(null)
 const props = withDefaults(
   defineProps<{
     selecterValue: SelectMenuItem[];
-    selectedValue: SelectorItem[] | null;
+    selectedValue: SelectorItem | SelectorItem[] | null;
     isLoading?: boolean;
     multiSelect: boolean;
     placeHolder?: string;
