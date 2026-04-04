@@ -1,23 +1,20 @@
 <!-- app\components\ui\OrderPipelineStatusCardComponent.vue -->
 <script lang="ts" setup>
+import type { OrderSummaryResponse } from '~~/types/orders/orders.response';
+
 defineOptions({
   tags: ["barcharts", "vertical"],
 });
 
 interface Props {
   isLoading: boolean;
-  revenue: RevenueDataItem[];
-}
-
-interface RevenueDataItem {
-  status: string;
-  value: number;
+  revenue: OrderSummaryResponse;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isLoading: false,
   revenue: () => [
-    { status: "Pending", value: 100 },
+    { status: "Pending", value: 0 },
     { status: "Processing", value: 90 },
     { status: "QC Check", value: 50 },
     { status: "Packaging", value: 15 },
@@ -26,7 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
   ],
 });
 
-const RevenueData: RevenueDataItem[] = props.revenue;
+const RevenueData: OrderSummaryResponse = props.revenue;
 
 const RevenueCategories = computed(() => ({
   desktop: {

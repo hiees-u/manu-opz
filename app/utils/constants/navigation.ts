@@ -1,7 +1,8 @@
 import type { NavigationMenuItem } from "@nuxt/ui";
 import { Permission } from "./permission";
 
-export const navigationItems: NavigationMenuItem[][] = [[{
+export const navigationItems: NavigationMenuItem[][] = [[
+{
   label: 'Dashboard',
   icon: 'i-lucide-house',
   permission: Permission.Dashboard_View,
