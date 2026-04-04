@@ -10,7 +10,6 @@
           :multi-select="false"
           place-holder="Select Day"
           v-model:selected-value="selectedDay"
-          @search-term-change="onChangeFilterCategorySelector"
           class="max-w-50"
         />
         <UiSelectorComponent
