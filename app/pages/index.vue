@@ -30,7 +30,6 @@
             }
           "
           class="max-w-50"
-
         />
       </div>
     </UBadge>
@@ -159,7 +158,7 @@
         />
       </div>
       <div class="col-span-1 row-span-2">
-        <UiPassRateGaugeComponent :is-loading="!mounted" :processing="94.5" />
+        <UiPassRateGaugeComponent :is-loading="!mounted" :processing="60.5" />
       </div>
       <div class="col-span-2 row-span-2">
         <UiOrderPipelineStatusCardComponent
@@ -241,7 +240,7 @@ watch(
 
 watch(isOpenCategorySelector, () => {
   if (isOpenCategorySelector.value) {
-    if(allCategories.value.length === 0) {
+    if (allCategories.value.length === 0) {
       refresh();
     }
   }
@@ -254,8 +253,8 @@ const onChangeFilterCategorySelector = (value: string) => {
 };
 
 const selectedDay = ref<SelectorItem | null>({
-  id: 'today',
-  label: 'Today'
+  id: "today",
+  label: "Today",
 });
 
 const selecterDayValue = [
@@ -270,25 +269,26 @@ const selecterDayValue = [
   {
     id: "month",
     label: "Month",
-  }, {
+  },
+  {
     id: "year",
     label: "Year",
-  }
+  },
 ];
 
 const { data: revenue } = await useAsyncData(
-  'order-summary', 
-  () => 
-  getOrderSummary({
-    date: selectedDay.value?.id || 'today',
-    product: 'all',
-  }),
+  "order-summary",
+  () =>
+    getOrderSummary({
+      date: selectedDay.value?.id || "today",
+      product: "all",
+    }),
   {
     immediate: true,
     watch: [selectedDay, selectedCategories],
-    default: () => ([{ status: '', value: 0 }]),
-  }
-)
+    default: () => [],
+  },
+);
 
 onMounted(async () => {
   mounted.value = true;

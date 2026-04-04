@@ -4,19 +4,24 @@
     <template v-if="!isLoading">
       <p class="text-lg">Gauge for Pass Rate</p>
       <DonutChart
+        class="[--vis-donut-background-color:transparent]"
         :data="data.map((i) => i.percentage)"
-        :height="155"
         :categories="categories"
-        :hide-legend="true"
-        :type="DonutType.Full"
-        :radius="0"
+        :height="155"
+        :radius="80"
+        :pad-angle="0.1"
+        :arc-width="20"
       >
         <div class="text-center">
-          <div class="font-bold text-2xl text-green-950 dark:text-white">{{processing}}%</div>
+          <div class="font-bold text-2xl text-green-950 dark:text-white">
+            {{ processing }}%
+          </div>
         </div>
       </DonutChart>
       <div class="w-full flex justify-end">
-        <UBadge color="secondary"><button class="cursor-pointer">See Details</button></UBadge>
+        <UBadge color="secondary"
+          ><button class="cursor-pointer">See Details</button></UBadge
+        >
       </div>
     </template>
     <template v-else>
@@ -38,23 +43,23 @@ const props = withDefaults(defineProps<Props>(), {
   processing: 0,
 });
 
-const { isLoading } = toRefs(props);
+const { processing, isLoading } = toRefs(props);
 
-const data = [
-  { name: 'NotStarted', percentage: 25 },
-  { name: 'Processing', percentage: 75 },
-]
+const data = computed(() => [
+  { category: "Pass", percentage: processing.value },
+  { category: "Fail", percentage: 100 - processing.value },
+]);
 
 const categories = {
   NotStarted: {
-    name: 'Not Started',
-    color: 'var(--color-green-200)'
+    name: "Pass",
+    color: "var(--color-green-500)",
   },
   Processing: {
-    name: 'Processing',
-    color: 'var(--color-green-500)'
+    name: "Fail",
+    color: "var(--color-gray-200)",
   },
-}
+};
 </script>
 
-<style></style>
+<style scoped></style>

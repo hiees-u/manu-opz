@@ -14,10 +14,10 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   isLoading: false,
   revenue: () => [
-    { status: "Pending", value: 0 },
+    { status: "Success", value: 0 },
     { status: "Processing", value: 0 },
     { status: "QC Check", value: 0 },
-    { status: "Packaging", value: 0 },
+    { status: "Packing", value: 0 },
     { status: "Shipped", value: 0 },
     { status: "Delivered", value: 0 },
   ],
