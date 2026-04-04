@@ -40,4 +40,9 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'vercel',
   },
+  vite: {
+    define: {
+      __VUE_PROD_DEVTOOLS__: true,
+    },
+  },
 })
