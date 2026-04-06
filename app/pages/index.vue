@@ -8,13 +8,13 @@
         <UiSelectorComponent
           :selecterValue="selecterDayValue"
           :multi-select="false"
+          :is-clearable="false"
           place-holder="Select Day"
           v-model:selected-value="selectedDay"
           class="max-w-50"
         />
         <UiSelectorComponent
           :selecterValue="selecterCategoriesValue"
-          :isLoading="isfetchSelectCategories"
           :multi-select="true"
           v-model:selected-value="selectedCategories"
           @search-term-change="onChangeFilterCategorySelector"
@@ -246,7 +246,7 @@ watch(isOpenCategorySelector, () => {
   }
 });
 
-const isfetchSelectCategories = computed(() => pending.value);
+// const isfetchSelectCategories = computed(() => pending.value);
 
 const onChangeFilterCategorySelector = (value: string) => {
   search.value = value;
