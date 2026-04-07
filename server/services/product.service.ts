@@ -1,5 +1,9 @@
-import { Category } from '../../types/category/category.model'
-import { CategoryRequest } from '../../types/category/category.request'
+import type { Category } from "../../types/category/category.model";
+import type { CategoryRequest } from "../../types/category/category.request";
+
+import type { PassRateModel } from "../../types/products/products.model";
+import type { PassRatteRequest } from "../../types/products/products.request";
+import type { PassRateResponse } from "../../types/products/products.response";
 
 const CATEGORY: Category[] = [
   {
@@ -204,17 +208,24 @@ const CATEGORY: Category[] = [
   },
 ];
 
+const PASS_RATE: PassRateModel[] = [
+  { total: 100, pass: 90, passRate: 30, date: 'today', product: 'all' },
+  { total: 200, pass: 180, passRate: 78, date: 'week', product: 'all' },
+  { total: 150, pass: 135, passRate: 90, date: 'month', product: 'all' },
+  { total: 120, pass: 108, passRate: 65, date: 'year', product: 'all' },
+];
+
 const getCategoriesService = (payload: CategoryRequest): Category[] => {
-  const { filters = {}, page,  cursor, pageSize = 0 } = payload;
+  const { filters = {}, page, cursor, pageSize = 0 } = payload;
   const hasFilters = Object.keys(filters).length > 0;
   // const filtered: Category[] = ;
 
   if (filters?.obj_id) {
-    return CATEGORY.filter(c => c.obj_id === filters.obj_id);
+    return CATEGORY.filter((c) => c.obj_id === filters.obj_id);
   }
 
-  const filtered = CATEGORY.filter(c => {
-    return (Object.keys(filters) as (keyof Category)[]).every(key => {
+  const filtered = CATEGORY.filter((c) => {
+    return (Object.keys(filters) as (keyof Category)[]).every((key) => {
       const value = filters[key];
       const itemValue = c[key];
 
@@ -233,13 +244,25 @@ const getCategoriesService = (payload: CategoryRequest): Category[] => {
   const results = hasFilters ? filtered : CATEGORY;
 
   //get all
-  if(pageSize === 0) return results;
+  if (pageSize === 0) return results;
 
-  const start = filtered.findIndex(item => item.obj_id === cursor) + 1;
+  const start = filtered.findIndex((item) => item.obj_id === cursor) + 1;
   const end = start + pageSize;
 
   //get has page size and cursor
   return results.slice(start, end);
 };
 
-export { getCategoriesService };
+const getPassRateService = (payload: PassRatteRequest): PassRateResponse => {
+  const { date, cate } = payload;
+
+  console.log('getPassRateService => ', date);
+  
+  const filtered = PASS_RATE.find((p) => {
+    return p.date === date;
+  }) || { total: 0, pass: 0, passRate: 0, date: 'all', product: 'all' };
+
+  return filtered;
+};
+
+export { getCategoriesService, getPassRateService };

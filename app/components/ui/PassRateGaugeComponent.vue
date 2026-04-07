@@ -36,11 +36,13 @@
 interface Props {
   isLoading?: boolean;
   processing: number;
+  colorPass?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isLoading: false,
   processing: 0,
+  colorPass: "var(--color-green-500)",
 });
 
 const { processing, isLoading } = toRefs(props);
@@ -50,16 +52,18 @@ const data = computed(() => [
   { category: "Fail", percentage: 100 - processing.value },
 ]);
 
-const categories = {
-  NotStarted: {
-    name: "Pass",
-    color: "var(--color-green-500)",
-  },
-  Processing: {
-    name: "Fail",
-    color: "var(--color-gray-200)",
-  },
-};
+const categories = computed(() => {
+  return {
+    Pass: {
+      name: "Pass",
+      color: props.colorPass,
+    },
+    Fail: {
+      name: "Fail",
+      color: "var(--color-gray-200)",
+    },
+  };
+});
 </script>
 
 <style scoped></style>

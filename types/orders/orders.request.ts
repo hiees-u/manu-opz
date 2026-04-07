@@ -1,6 +1,5 @@
-interface OrderSummaryRequest {
-  date: 'today' | 'week' | 'month' | 'year' | string;
-  product: string | 'all';
-}
+import type { filtersRequest } from '../filters.common';
+
+type OrderSummaryRequest = filtersRequest;
 
 export type { OrderSummaryRequest };

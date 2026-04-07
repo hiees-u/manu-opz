@@ -158,7 +158,7 @@
         />
       </div>
       <div class="col-span-1 row-span-2">
-        <UiPassRateGaugeComponent :is-loading="!mounted" :processing="60.5" />
+        <UiPassRateGaugeComponent :is-loading="!mounted" :processing="passRateData" :colorPass="colorPass" />
       </div>
       <div class="col-span-2 row-span-2">
         <UiOrderPipelineStatusCardComponent
@@ -281,7 +281,7 @@ const { data: revenue } = await useAsyncData(
   () =>
     getOrderSummary({
       date: selectedDay.value?.id || "today",
-      product: "all",
+      cate: "all",
     }),
   {
     immediate: true,
@@ -289,6 +289,28 @@ const { data: revenue } = await useAsyncData(
     default: () => [],
   },
 );
+
+const { data: passRate } = await useAsyncData(
+  "pass-rate",
+  () =>
+    getPassRate({
+      date: selectedDay.value?.id || "today",
+      cate: "all",
+    }),
+  {
+    immediate: true,
+    watch: [selectedDay, selectedCategories],
+    default: () => ({ data: { total: 0, pass: 0, passRate: 0 } }),
+  },
+);
+
+const passRateData = computed(() => passRate.value?.data?.passRate || 0);
+const colorPass = computed(() => {
+  const rate = passRateData.value;
+  if (rate >= 90) return "var(--color-green-500)";
+  if (rate >= 70) return "var(--color-yellow-500)";
+  return "var(--color-red-500)";
+});
 
 onMounted(async () => {
   mounted.value = true;
