@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@vueuse/nuxt',
     'nuxt-charts',
+    '@vercel/analytics',
   ],
   css: [
     '~/assets/css/main.css'
