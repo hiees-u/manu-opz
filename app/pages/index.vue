@@ -6,7 +6,7 @@
         <UIcon :name="ICONS.filters" class="size-7" />
         <p class="text-base">Filters:</p>
         <UiSelectorComponent
-          :selecterValue="selecterDayValue"
+          :selecterValue="selectDateValue"
           :multi-select="false"
           :is-clearable="false"
           place-holder="Select Day"
@@ -23,12 +23,7 @@
               isOpenCategorySelector = val;
             }
           "
-          @update:cursor="
-            (val) => {
-              cursorCategoryNext = val;
-              console.log('đã nhận cursor mới: ', val);
-            }
-          "
+          @update:cursor="(val) => cursorCategoryNext = val"
           class="max-w-50"
         />
       </div>
@@ -39,9 +34,9 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Total's Orders"
-          value="245"
+          :value="orderTotal.currentOrderTotal"
           unit="units"
-          :trend="12.5"
+          :trend="orderTotal.orderTotalChangeRate"
           unit-trend="%"
           trend-label="vs yesterday"
           :is-loading="!mounted"
@@ -177,6 +172,8 @@ import type { SelectMenuItem } from "@nuxt/ui";
 import type { Category } from "~~/types/category/category.model";
 import type { CategoryRequest } from "~~/types/category/category.request";
 
+import selectDateValue from "~/utils/constants/selectDateValue";
+
 definePageMeta({
   middleware: "auth",
   layout: "default",
@@ -257,25 +254,6 @@ const selectedDay = ref<SelectorItem | null>({
   label: "Today",
 });
 
-const selecterDayValue = [
-  {
-    id: "today",
-    label: "Today",
-  },
-  {
-    id: "week",
-    label: "Week",
-  },
-  {
-    id: "month",
-    label: "Month",
-  },
-  {
-    id: "year",
-    label: "Year",
-  },
-];
-
 const { data: revenue } = await useAsyncData(
   "order-summary",
   () =>
@@ -305,12 +283,38 @@ const { data: passRate } = await useAsyncData(
 );
 
 const passRateData = computed(() => passRate.value?.data?.passRate || 0);
+
 const colorPass = computed(() => {
   const rate = passRateData.value;
   if (rate >= 90) return "var(--color-green-500)";
   if (rate >= 70) return "var(--color-yellow-500)";
   return "var(--color-red-500)";
 });
+
+const { data: orderTotal = { currentOrderTotal: 0, orderTotalChangeRate: 0 } } = await useAsyncData(
+  "order-total",
+  async () => {
+    const currentOrderTotal = await getOrderTotal({
+      date: selectedDay.value?.id || "today",
+      cate: "all",
+    }) || 0;
+
+    // const oldOrderTotal = await getOrderTotal({
+    //   date: "week",
+    //   cate: "all",
+    // }) || 0;
+
+    const oldOrderTotal = 500; // giả sử giá trị cũ để tính toán
+
+    const orderTotalChangeRate = oldOrderTotal ? ((currentOrderTotal - oldOrderTotal) / oldOrderTotal) * 100 : 0;
+
+    return { currentOrderTotal, orderTotalChangeRate };
+  }, {
+    immediate: true,
+    watch: [selectedDay, selectedCategories],
+    default: () => ({ currentOrderTotal: 0, orderTotalChangeRate: 0 }),
+  },
+);
 
 onMounted(async () => {
   mounted.value = true;

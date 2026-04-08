@@ -7,4 +7,9 @@ const getOrderSummary = async (payload: OrderSummaryRequest): Promise<OrderSumma
   return result;
 }
 
-export { getOrderSummary };
+const getOrderTotal = async (payload: OrderSummaryRequest): Promise<number> => {
+  const result = (await (OrdersApi.getOrderTotal(payload))).data ?? 0;
+  return result;
+}
+
+export { getOrderSummary, getOrderTotal };

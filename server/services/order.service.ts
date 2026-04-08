@@ -2,7 +2,7 @@ import type { OrderSummaryResponse } from "../../types/orders/orders.response.ts
 import { OrderSummaryRequest } from "../../types/orders/orders.request";
 
 // Gom dữ liệu mock vào một Object để quản lý cho gọn
-const mockData: Record<OrderSummaryRequest["date"], OrderSummaryResponse> = {
+const mockDataOrderPipe: Record<NonNullable<OrderSummaryRequest["date"]>, OrderSummaryResponse> = {
   today: [
     { status: "Success", value: 16 },
     { status: "Processing", value: 76 },
@@ -37,9 +37,22 @@ const mockData: Record<OrderSummaryRequest["date"], OrderSummaryResponse> = {
   ],
 };
 
+const mockDataOrderTotal: Record<NonNullable<OrderSummaryRequest["date"]>, number> = {
+  today: 275,
+  week: 375,
+  month: 285,
+  year: 975,
+};
+
 function getOrderSummary(request: OrderSummaryRequest): OrderSummaryResponse {
   // Trả về dữ liệu tương ứng hoặc mảng rỗng nếu không khớp
-  return mockData[request.date] || [];
+  return mockDataOrderPipe[request.date ?? "today"] || [];
 }
 
-export { getOrderSummary };
+function getOrderTotal(request: OrderSummaryRequest): number {
+  console.log('PAYLOAD SERVICE: ', request);
+
+  return mockDataOrderTotal[request.date ?? "today"] || 0;
+}
+
+export { getOrderSummary, getOrderTotal };

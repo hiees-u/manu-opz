@@ -1,7 +1,6 @@
 <!-- app\components\ui\BaseStatCard.vue -->
 <template>
   <UCard variant="subtle" class="w-full" :ui="{ body: 'p-0 sm:p-4 relative' }">
-
     <p v-if="!isLoading" class="text-lg h-6">{{ title }}</p>
     <USkeleton v-else class="w-2/3 h-6 rounded-lg" />
 
@@ -26,7 +25,6 @@
       <slot v-if="!isLoading" name="icon" />
       <USkeleton v-else class="w-full h-full rounded-lg" />
     </div>
-
   </UCard>
 </template>
 
