@@ -60,7 +60,7 @@ const categories = computed(() => {
     },
     Fail: {
       name: "Fail",
-      color: "var(--color-gray-200)",
+      color: "var(--color-zinc-400)",
     },
   };
 });
