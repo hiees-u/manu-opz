@@ -9,5 +9,12 @@ export const OrdersApi = {
       body: summaryRequest,
     });
     return response;
+  },
+  getOrderTotal: async (request: OrderSummaryRequest): Promise<ApiResponse<number>> => {
+    const response = await $fetch<ApiResponse<number>>("/api/orders/total", {
+      method: "POST",
+      body: request,
+    });
+    return response;
   }
 }
