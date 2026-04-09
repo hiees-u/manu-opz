@@ -13,6 +13,7 @@
       :show-button-reset="true"
       :input-background="'#f5f5f5'"
       :place-holder="'Enter your user name...'"
+      :tab-index="1"
     ></UiBaseInput>
     <UiBaseInput
       v-model="userRequest.password"
@@ -22,6 +23,7 @@
       :input-background="'#f5f5f5'"
       :show-button-password="true"
       :place-holder="'Enter your password...'"
+      :tab-index="2"
     ></UiBaseInput>
     <button class="login-button" @click="onSubmit">Login</button>
   </div>

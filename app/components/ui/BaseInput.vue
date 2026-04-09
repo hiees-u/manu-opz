@@ -23,6 +23,7 @@
           'error-input': props.isError,
           isPassword: props.type === 'password',
         }"
+        :tabindex="props.tabIndex"
       />
       <UTooltip
         arrow
@@ -62,6 +63,7 @@
     <button
       :class="showResetButton ? 'btn-reset active' : 'btn-reset'"
       @click="onReset"
+      tabindex="-1"
     >
       <UIcon :name="ICONS.close" />
     </button>
@@ -123,6 +125,10 @@ const props = defineProps({
   inputBorderColor: {
     type: String,
     default: "#000",
+  },
+  tabIndex: {
+    type: Number,
+    default: 0,
   },
 });
 
