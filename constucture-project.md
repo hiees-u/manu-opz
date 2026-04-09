@@ -1,93 +1,129 @@
 # File Tree: manu-opz
 
-**Generated:** 3/13/2026, 6:18:05 PM
+**Generated:** 4/9/2026, 11:44:02 PM
 **Root Path:** `d:\Project\manu-opz`
 
 ```
-├── 📁 app
-│   ├── 📁 assets
-│   │   └── 📁 css
-│   │       └── 🎨 main.css
-│   ├── 📁 components
-│   │   ├── 📁 form
-│   │   │   └── 📄 LoginForm.vue
-│   │   ├── 📁 skeletons
-│   │   │   ├── 📄 BannerLoginSkeleton.vue.vue
-│   │   │   └── 📄 LoginFormSkeleton.vue
-│   │   └── 📁 ui
-│   │       ├── 📄 BaseInput.vue
-│   │       ├── 📄 BaseStatCard.vue
-│   │       ├── 📄 OEEOverrideComponent.vue
-│   │       ├── 📄 OrderPipelineStatusCardComponent.vue
-│   │       ├── 📄 PassRateGaugeComponent.vue
-│   │       └── 📄 SideBarComponent.vue
-│   ├── 📁 composables
-│   │   ├── 📄 logCustomer.ts
-│   │   ├── 📄 useClock.ts
-│   │   ├── 📄 useLogin.ts
-│   │   └── 📄 useLogout.ts
-│   ├── 📁 layouts
-│   │   ├── 📄 auth.vue
-│   │   └── 📄 default.vue
-│   ├── 📁 middleware
-│   │   ├── 📄 auth.ts
-│   │   ├── 📄 guest.ts
-│   │   └── 📄 permission.ts
-│   ├── 📁 pages
-│   │   ├── 📄 index.vue
-│   │   ├── 📄 login.vue
-│   │   ├── 📄 pageA.vue
-│   │   └── 📄 pageB.vue
-│   ├── 📁 plugins
-│   │   └── 📄 init-auth.server.ts
-│   ├── 📁 services
-│   │   └── 📁 api
-│   │       └── 📄 auth.client.ts
-│   ├── 📁 stores
-│   │   └── 📄 auth.store.ts
-│   ├── 📁 utils
-│   │   ├── 📁 constants
-│   │   │   └── 📄 navigation.ts
-│   │   └── 📁 types
-│   │       ├── 📁 props
-│   │       │   └── 📄 passRateGaugeProps.ts
-│   │       ├── 📄 icon.ts
-│   │       └── 📄 permission.ts
-│   └── 📄 app.vue
-├── 📁 ideal
-│   ├── 🖼️ new_dashboard_i.jpg
-│   ├── 🖼️ new_dashboard_ii.jpg
-│   ├── 🖼️ z7554785139733_8052732b5c5ce20af8f97ffda49a561b.jpg
-│   ├── 🖼️ z7554786451595_26589978f02ffadbb1278c89e7040782.jpg
-│   ├── 🖼️ z7554787376853_ff32cbd29d53443d1e81c061df9f30ac.jpg
-│   └── 🖼️ z7554788317000_74a5759e4c0f182b75f37ebfeccc964c.jpg
-├── 📁 public
-│   ├── 📁 images
-│   │   └── 📁 banner-login
-│   │       └── 🖼️ banner-login.png
-│   ├── 🖼️ favicon.png
-│   └── 📄 robots.txt
-├── 📁 server
-│   ├── 📁 api
-│   │   └── 📁 auth
-│   │       ├── 📄 login.post.ts
-│   │       ├── 📄 logout.post.ts
-│   │       └── 📄 me.get.ts
-│   └── 📁 services
-│       └── 📄 auth.service.ts
-├── 📁 types
-│   ├── 📁 auth
-│   │   ├── 📄 auth.request.ts
-│   │   ├── 📄 auth.response.ts
-│   │   └── 📄 auth.server.response.ts
-│   └── 📄 api.response.ts
-├── ⚙️ .gitignore
-├── 📝 README.md
-├── 📝 constucture-project.md
-├── 📄 nuxt.config.ts
-├── ⚙️ package-lock.json
-├── ⚙️ package.json
-└── ⚙️ tsconfig.json
+├── app
+│   ├── assets
+│   │   └── css
+│   │       └── main.css
+│   ├── components
+│   │   ├── form
+│   │   │   └── LoginForm.vue
+│   │   ├── skeletons
+│   │   │   ├── BannerLoginSkeleton.vue.vue
+│   │   │   └── LoginFormSkeleton.vue
+│   │   └── ui
+│   │       ├── BaseInput.vue
+│   │       ├── BaseStatCard.vue
+│   │       ├── BusinessPerformanceWidgetComponent.vue
+│   │       ├── OEEOverrideComponent.vue
+│   │       ├── OrderPipelineStatusCardComponent.vue
+│   │       ├── PassRateGaugeComponent.vue
+│   │       ├── SelectorComponent.vue
+│   │       └── SideBarComponent.vue
+│   ├── composables
+│   │   ├── product
+│   │   │   └── useProducts.ts
+│   │   ├── logCustomer.ts
+│   │   ├── useCategories.ts
+│   │   ├── useCategoriesSelector.ts
+│   │   ├── useClock.ts
+│   │   ├── useDateSelector.ts
+│   │   ├── useLogin.ts
+│   │   ├── useLogout.ts
+│   │   ├── useOrderSummary.ts
+│   │   ├── useOrders.ts
+│   │   ├── usePassRate.ts
+│   │   └── useProducts.ts
+│   ├── layouts
+│   │   ├── auth.vue
+│   │   └── default.vue
+│   ├── middleware
+│   │   ├── auth.ts
+│   │   ├── guest.ts
+│   │   └── permission.ts
+│   ├── pages
+│   │   ├── index.vue
+│   │   ├── login.vue
+│   │   ├── pageA.vue
+│   │   └── pageB.vue
+│   ├── plugins
+│   │   └── init-auth.server.ts
+│   ├── services
+│   │   └── api
+│   │       ├── auth.client.ts
+│   │       ├── orders.client.ts
+│   │       └── products.client.ts
+│   ├── stores
+│   │   └── auth.store.ts
+│   ├── utils
+│   │   ├── constants
+│   │   │   ├── icon.ts
+│   │   │   ├── navigation.ts
+│   │   │   ├── permission.ts
+│   │   │   └── selectDateValue.ts
+│   │   └── types.ts
+│   └── app.vue
+├── ideal
+│   ├── new_dashboard_i.jpg
+│   ├── new_dashboard_ii.jpg
+│   ├── order_page.jfif
+│   ├── z7554785139733_8052732b5c5ce20af8f97ffda49a561b.jpg
+│   ├── z7554786451595_26589978f02ffadbb1278c89e7040782.jpg
+│   ├── z7554787376853_ff32cbd29d53443d1e81c061df9f30ac.jpg
+│   └── z7554788317000_74a5759e4c0f182b75f37ebfeccc964c.jpg
+├── public
+│   ├── images
+│   │   └── banner-login
+│   │       └── banner-login.png
+│   ├── favicon.png
+│   └── robots.txt
+├── server
+│   ├── api
+│   │   ├── auth
+│   │   │   ├── login.post.ts
+│   │   │   ├── logout.post.ts
+│   │   │   └── me.get.ts
+│   │   ├── orders
+│   │   │   ├── summary.post.ts
+│   │   │   └── total.post.ts
+│   │   └── products
+│   │       ├── category.post.ts
+│   │       └── passRate.post.ts
+│   └── services
+│       ├── auth.service.ts
+│       ├── order.service.ts
+│       └── product.service.ts
+├── types
+│   ├── auth
+│   │   ├── auth.request.ts
+│   │   ├── auth.response.ts
+│   │   └── auth.server.response.ts
+│   ├── category
+│   │   ├── category.model.ts
+│   │   ├── category.request.ts
+│   │   └── category.response.ts
+│   ├── filters.common
+│   │   └── index.ts
+│   ├── orders
+│   │   ├── order.model.ts
+│   │   ├── orders.request.ts
+│   │   └── orders.response.ts
+│   ├── products
+│   │   ├── products.model.ts
+│   │   ├── products.request.ts
+│   │   └── products.response.ts
+│   ├── api.response.ts
+│   └── pagination.model.ts
+├── .gitignore
+├── README.md
+├── constucture-project.md
+├── nuxt.config.ts
+├── package-lock.json
+├── package.json
+└── tsconfig.json
 ```
 
 ---
