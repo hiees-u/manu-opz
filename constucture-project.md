@@ -1,6 +1,6 @@
 # File Tree: manu-opz
 
-**Generated:** 4/9/2026, 11:44:02 PM
+**Generated:** 4/10/2026, 11:38:43 PM
 **Root Path:** `d:\Project\manu-opz`
 
 ```
@@ -24,19 +24,31 @@
 │   │       ├── SelectorComponent.vue
 │   │       └── SideBarComponent.vue
 │   ├── composables
-│   │   ├── product
-│   │   │   └── useProducts.ts
-│   │   ├── logCustomer.ts
-│   │   ├── useCategories.ts
-│   │   ├── useCategoriesSelector.ts
-│   │   ├── useClock.ts
-│   │   ├── useDateSelector.ts
-│   │   ├── useLogin.ts
-│   │   ├── useLogout.ts
-│   │   ├── useOrderSummary.ts
-│   │   ├── useOrders.ts
-│   │   ├── usePassRate.ts
-│   │   └── useProducts.ts
+│   │   ├── auth
+│   │   │   ├── index.ts
+│   │   │   ├── useLogin.ts
+│   │   │   └── useLogout.ts
+│   │   ├── categories.ts
+│   │   │   ├── index.ts
+│   │   │   ├── useCategories.ts
+│   │   │   └── useCategoriesSelector.ts
+│   │   ├── date
+│   │   │   ├── index.ts
+│   │   │   └── useDateSelector.ts
+│   │   ├── lock
+│   │   │   ├── index.ts
+│   │   │   └── useClock.ts
+│   │   ├── log
+│   │   │   ├── index.ts
+│   │   │   └── logCustomer.ts
+│   │   ├── order
+│   │   │   ├── index.ts
+│   │   │   ├── useOrderSummary.ts
+│   │   │   └── useOrders.ts
+│   │   └── products
+│   │       ├── index.ts
+│   │       ├── usePassRate.ts
+│   │       └── useProducts.ts
 │   ├── layouts
 │   │   ├── auth.vue
 │   │   └── default.vue

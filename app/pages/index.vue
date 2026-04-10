@@ -33,9 +33,9 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Total's Orders"
-          :value="orderTotal.currentOrderTotal"
+          :value="orderTotalSummary.currentOrderTotal"
           unit="units"
-          :trend="orderTotal.orderTotalChangeRate"
+          :trend="orderTotalSummary.orderTotalChangeRate"
           unit-trend="%"
           trend-label="vs yesterday"
           :is-loading="!mounted"
@@ -189,39 +189,9 @@ const {
 
 const { selectedDay, selectDateValue } = useDateSelector();
 
-const { data: revenue } = await useOrderSummary( selectedDay, selectedCategories);
+const { revenue, orderTotalSummary } = await useOrderSummary( selectedDay, selectedCategories);
 
 const { data: passRate, colorPass } = await usePassRate(selectedDay, selectedCategories);
-
-const { data: orderTotal = { currentOrderTotal: 0, orderTotalChangeRate: 0 } } =
-  await useAsyncData(
-    "order-total",
-    async () => {
-      const currentOrderTotal =
-        (await getOrderTotal({
-          date: selectedDay.value?.id || "today",
-          cate: "all",
-        })) || 0;
-
-      // const oldOrderTotal = await getOrderTotal({
-      //   date: "week",
-      //   cate: "all",
-      // }) || 0;
-
-      const oldOrderTotal = 500; // giả sử giá trị cũ để tính toán
-
-      const orderTotalChangeRate = oldOrderTotal
-        ? ((currentOrderTotal - oldOrderTotal) / oldOrderTotal) * 100
-        : 0;
-
-      return { currentOrderTotal, orderTotalChangeRate };
-    },
-    {
-      immediate: true,
-      watch: [selectedDay, selectedCategories],
-      default: () => ({ currentOrderTotal: 0, orderTotalChangeRate: 0 }),
-    },
-  );
 
 onMounted(async () => {
   mounted.value = true;
