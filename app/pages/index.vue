@@ -23,20 +23,19 @@
               isOpenCategorySelector = val;
             }
           "
-          @update:cursor="(val) => cursorCategoryNext = val"
+          @update:cursor="(val) => (cursorCategoryNext = val)"
           class="max-w-50"
         />
       </div>
     </UBadge>
 
-    <!--  -->
     <div class="grid grid-cols-5 mt-5 gap-4">
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Total's Orders"
-          :value="orderTotal.currentOrderTotal"
+          :value="orderTotalSummary.currentOrderTotal"
           unit="units"
-          :trend="orderTotal.orderTotalChangeRate"
+          :trend="orderTotalSummary.orderTotalChangeRate"
           unit-trend="%"
           trend-label="vs yesterday"
           :is-loading="!mounted"
@@ -153,7 +152,11 @@
         />
       </div>
       <div class="col-span-1 row-span-2">
-        <UiPassRateGaugeComponent :is-loading="!mounted" :processing="passRateData" :colorPass="colorPass" />
+        <UiPassRateGaugeComponent
+          :is-loading="!mounted"
+          :processing="passRate"
+          :colorPass="colorPass"
+        />
       </div>
       <div class="col-span-2 row-span-2">
         <UiOrderPipelineStatusCardComponent
@@ -168,12 +171,6 @@
 <script lang="ts" setup>
 import { ICONS } from "@/utils/constants/icon";
 
-import type { SelectMenuItem } from "@nuxt/ui";
-import type { Category } from "~~/types/category/category.model";
-import type { CategoryRequest } from "~~/types/category/category.request";
-
-import selectDateValue from "~/utils/constants/selectDateValue";
-
 definePageMeta({
   middleware: "auth",
   layout: "default",
@@ -181,140 +178,20 @@ definePageMeta({
 });
 
 const mounted = ref(false);
-const search = ref("");
-
-const isOpenCategorySelector = ref(false);
-const cursorCategoryNext = ref<string | null>(null);
-const selectedCategories = ref<SelectorItem[]>([]);
-const selectedCategoriesLimit = 10;
-const allCategories = ref<Category[]>([]);
 
 const {
-  data: categories,
-  pending,
-  refresh,
-} = await useAsyncData(
-  "categories",
-  () =>
-    getCategories({
-      page: 1,
-      cursor: cursorCategoryNext.value,
-      pageSize: selectedCategoriesLimit,
-      filters: {
-        ...(search.value ? { obj_name: search.value } : {}),
-      },
-    } as CategoryRequest),
-  {
-    immediate: false,
-    watch: [search, cursorCategoryNext],
-    default: () => [],
-  },
-);
+  onSearch: onChangeFilterCategorySelector,
+  isOpen: isOpenCategorySelector,
+  options: selecterCategoriesValue,
+  cursorNext: cursorCategoryNext,
+  selectedCategories,
+} = useCategoriesSelector();
 
-const selecterCategoriesValue = computed<SelectMenuItem[]>(() =>
-  (allCategories.value ?? []).map((cate) => ({
-    label: cate.obj_name,
-    id: cate.obj_id,
-  })),
-);
+const { selectedDay, selectDateValue } = useDateSelector();
 
-watch(
-  categories,
-  (newCategories) => {
-    // search mới -> reset data cũ
-    if (!cursorCategoryNext.value || search.value) {
-      allCategories.value = newCategories ?? [];
-      return;
-    }
+const { revenue, orderTotalSummary } = await useOrderSummary( selectedDay, selectedCategories);
 
-    // load more -> chỉ append nếu API có data
-    if (newCategories && newCategories.length > 0) {
-      allCategories.value.push(...newCategories);
-    }
-  },
-  { immediate: true },
-);
-
-watch(isOpenCategorySelector, () => {
-  if (isOpenCategorySelector.value) {
-    if (allCategories.value.length === 0) {
-      refresh();
-    }
-  }
-});
-
-// const isfetchSelectCategories = computed(() => pending.value);
-
-const onChangeFilterCategorySelector = (value: string) => {
-  search.value = value;
-};
-
-const selectedDay = ref<SelectorItem | null>({
-  id: "today",
-  label: "Today",
-});
-
-const { data: revenue } = await useAsyncData(
-  "order-summary",
-  () =>
-    getOrderSummary({
-      date: selectedDay.value?.id || "today",
-      cate: "all",
-    }),
-  {
-    immediate: true,
-    watch: [selectedDay, selectedCategories],
-    default: () => [],
-  },
-);
-
-const { data: passRate } = await useAsyncData(
-  "pass-rate",
-  () =>
-    getPassRate({
-      date: selectedDay.value?.id || "today",
-      cate: "all",
-    }),
-  {
-    immediate: true,
-    watch: [selectedDay, selectedCategories],
-    default: () => ({ data: { total: 0, pass: 0, passRate: 0 } }),
-  },
-);
-
-const passRateData = computed(() => passRate.value?.data?.passRate || 0);
-
-const colorPass = computed(() => {
-  const rate = passRateData.value;
-  if (rate >= 90) return "var(--color-green-500)";
-  if (rate >= 70) return "var(--color-yellow-500)";
-  return "var(--color-red-500)";
-});
-
-const { data: orderTotal = { currentOrderTotal: 0, orderTotalChangeRate: 0 } } = await useAsyncData(
-  "order-total",
-  async () => {
-    const currentOrderTotal = await getOrderTotal({
-      date: selectedDay.value?.id || "today",
-      cate: "all",
-    }) || 0;
-
-    // const oldOrderTotal = await getOrderTotal({
-    //   date: "week",
-    //   cate: "all",
-    // }) || 0;
-
-    const oldOrderTotal = 500; // giả sử giá trị cũ để tính toán
-
-    const orderTotalChangeRate = oldOrderTotal ? ((currentOrderTotal - oldOrderTotal) / oldOrderTotal) * 100 : 0;
-
-    return { currentOrderTotal, orderTotalChangeRate };
-  }, {
-    immediate: true,
-    watch: [selectedDay, selectedCategories],
-    default: () => ({ currentOrderTotal: 0, orderTotalChangeRate: 0 }),
-  },
-);
+const { data: passRate, colorPass } = await usePassRate(selectedDay, selectedCategories);
 
 onMounted(async () => {
   mounted.value = true;

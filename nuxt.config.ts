@@ -45,4 +45,9 @@ export default defineNuxtConfig({
       __VUE_PROD_DEVTOOLS__: true,
     },
   },
+  imports: {
+    dirs: [
+      'composables/**',
+    ]
+  },
 })
