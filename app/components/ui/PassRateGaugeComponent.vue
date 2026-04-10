@@ -19,9 +19,7 @@
         </div>
       </DonutChart>
       <div class="w-full flex justify-end">
-        <UBadge color="secondary"
-          ><button class="cursor-pointer">See Details</button></UBadge
-        >
+        <UBadge color="secondary"><button class="cursor-pointer">See Details</button></UBadge>
       </div>
     </template>
     <template v-else>

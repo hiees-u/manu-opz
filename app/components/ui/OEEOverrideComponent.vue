@@ -1,62 +1,74 @@
 <template>
   <template v-if="!isLoading">
-    <UCard
-      variant="soft"
-      :ui="{
-        root: 'bg-gradient-to-tr from-blue-600 to-violet-400 text-white',
-        body: 'sm:p-4',
-      }"
-    >
-      <div class="mb-3">
-        <p class="text-xl font-medium">Overall Equipment Effectiveness (OEE)</p>
+    <div class="h-full flex justify-between flex-col">
+      <UCard
+        variant="soft"
+        :ui="{
+          root: 'bg-gradient-to-tr from-blue-600 to-violet-400 text-white',
+          body: 'sm:p-4',
+        }"
+      >
+        <div class="mb-3">
+          <p class="text-xl font-medium">
+            Overall Equipment Effectiveness (OEE)
+          </p>
+        </div>
+        <p class="text-5xl font-bold mb-2">
+          {{ oee }}%
+          <UBadge
+            variant="soft"
+            :ui="{
+              base: 'bg-[#3d0bd336] text-white',
+            }"
+          >
+            {{ trendText }}
+          </UBadge>
+        </p>
+        <p class="text-sm text-white-100">Target {{}}% (World Class)</p>
+        <div class="flex justify-between p-0 mt-3">
+          <!-- <UBadge color="success" variant="soft" :ui="{ base: 'block w-[32%] text-white' }"> -->
+          <UBadge
+            variant="soft"
+            :ui="{
+              base: 'bg-[#1010fa47] text-white block w-[32%]',
+            }"
+          >
+            <p class="text-xs font-normal">Availability</p>
+            <p class="text-2xl font-semibold">{{ avail }}%</p>
+          </UBadge>
+          <UBadge
+            color="success"
+            variant="soft"
+            :ui="{
+              base: 'bg-[#1010fa47] text-white block w-[32%]',
+            }"
+          >
+            <p class="text-xs font-normal">Performance</p>
+            <p class="text-2xl font-semibold">{{ perf }}%</p>
+          </UBadge>
+          <UBadge
+            variant="soft"
+            :ui="{
+              base: 'bg-[#1010fa47] text-white block w-[32%]',
+            }"
+          >
+            <p class="text-xs font-normal">Quality</p>
+            <p class="text-2xl font-semibold">{{ qual }}%</p>
+          </UBadge>
+        </div>
+      </UCard>
+      <div class="w-full flex justify-end">
+        <UBadge color="secondary"
+          ><button class="cursor-pointer">See Details</button></UBadge
+        >
       </div>
-      <p class="text-5xl font-bold mb-2">
-        {{ oee }}%
-        <UBadge
-          variant="soft"
-          :ui="{
-            base: 'bg-[#3d0bd336] text-white',
-          }"
-        >
-          {{ trendText }}
-        </UBadge>
-      </p>
-      <p class="text-sm text-white-100">Target {{}}% (World Class)</p>
-      <div class="flex justify-between p-0 mt-3">
-        <!-- <UBadge color="success" variant="soft" :ui="{ base: 'block w-[32%] text-white' }"> -->
-        <UBadge
-          variant="soft"
-          :ui="{
-            base: 'bg-[#1010fa47] text-white block w-[32%]',
-          }"
-        >
-          <p class="text-xs font-normal">Availability</p>
-          <p class="text-2xl font-semibold">{{ avail }}%</p>
-        </UBadge>
-        <UBadge
-          color="success"
-          variant="soft"
-          :ui="{
-            base: 'bg-[#1010fa47] text-white block w-[32%]',
-          }"
-        >
-          <p class="text-xs font-normal">Performance</p>
-          <p class="text-2xl font-semibold">{{ perf }}%</p>
-        </UBadge>
-        <UBadge
-          variant="soft"
-          :ui="{
-            base: 'bg-[#1010fa47] text-white block w-[32%]',
-          }"
-        >
-          <p class="text-xs font-normal">Quality</p>
-          <p class="text-2xl font-semibold">{{ qual }}%</p>
-        </UBadge>
-      </div>
-    </UCard>
+    </div>
   </template>
   <template v-else>
-    <UCard class="h-auto w-full rounded-lg"  :ui="{ body: 'p-0 sm:p-4 relative' }">
+    <UCard
+      class="h-auto w-full rounded-lg"
+      :ui="{ body: 'p-0 sm:p-4 relative' }"
+    >
       <USkeleton class="h-7 w-full rounded-lg mb-3" />
       <div class="flex items-end w-50 mb-4">
         <USkeleton class="h-13 w-25 rounded-lg" />
@@ -109,7 +121,7 @@ const trendText = computed(() => {
   } else if (trend.value < 0) {
     return `${trend.value}% vs last week`;
   } else {
-    return 'No change vs last week';
+    return "No change vs last week";
   }
 });
 </script>
