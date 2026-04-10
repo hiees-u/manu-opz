@@ -29,7 +29,7 @@
       </div>
     </UBadge>
 
-    <div class="grid grid-cols-5 mt-5 gap-4">
+    <div class="grid grid-cols-5 mt-4 gap-4">
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Total's Orders"
@@ -141,7 +141,7 @@
           </template>
         </UiBaseStatCard>
       </div>
-      <div class="col-span-2 row-span-4">
+      <div class="col-span-2 row-span-2">
         <UiOEEOverrideComponent
           :oee="85"
           :avail="90"

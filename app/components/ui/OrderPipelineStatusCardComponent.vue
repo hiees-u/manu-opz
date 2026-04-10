@@ -1,6 +1,6 @@
 <!-- app\components\ui\OrderPipelineStatusCardComponent.vue -->
 <script lang="ts" setup>
-import type { OrderSummaryResponse } from '~~/types/orders/orders.response';
+import type { OrderSummaryResponse } from "~~/types/orders/orders.response";
 
 defineOptions({
   tags: ["barcharts", "vertical"],
@@ -39,23 +39,27 @@ const { isLoading } = toRefs(props);
 </script>
 
 <template>
-  <UContainer class="px-0 sm:px-0 lg:px-0">
+  <UContainer class="px-0 h-full sm:px-0 lg:px-0">
     <template v-if="!isLoading">
-      <BarChart
-        :data="revenue"
-        :height="185"
-        :categories="RevenueCategories"
-        :y-axis="['value']"
-        :x-num-ticks="6"
-        :radius="4"
-        :y-grid-line="true"
-        :x-formatter="xFormatter"
-        :y-formatter="yFormatter"
-        :legend-position="LegendPosition.TopRight"
-        :hide-legend="false"
-      />
-      <div class="w-full flex justify-end mt-5">
-        <UBadge color="secondary"><button class="cursor-pointer">See Details</button></UBadge>
+      <div class="flex flex-col justify-between w-full h-full">
+        <BarChart
+          :data="revenue"
+          :height="200"
+          :categories="RevenueCategories"
+          :y-axis="['value']"
+          :x-num-ticks="6"
+          :radius="4"
+          :y-grid-line="true"
+          :x-formatter="xFormatter"
+          :y-formatter="yFormatter"
+          :legend-position="LegendPosition.TopRight"
+          :hide-legend="false"
+        />
+        <div class="w-full flex justify-end mt-5">
+          <UBadge color="secondary"
+            ><button class="cursor-pointer">See Details</button></UBadge
+          >
+        </div>
       </div>
     </template>
     <template v-else>
