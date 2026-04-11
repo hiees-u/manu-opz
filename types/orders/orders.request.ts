@@ -1,5 +1,10 @@
 import type { filtersRequest } from '../filters.common';
+import type { Status } from '../status.model';
 
 type OrderSummaryRequest = filtersRequest;
 
-export type { OrderSummaryRequest };
+type OrderRequest = OrderSummaryRequest & {
+  status?: Status
+}
+
+export type { OrderRequest, OrderSummaryRequest };

@@ -1,5 +1,6 @@
-import type { OrderSummaryResponse } from "../../types/orders/orders.response.ts";
-import { OrderSummaryRequest } from "../../types/orders/orders.request";
+import type { OrderResponse, OrderSummaryResponse } from "../../types/orders/orders.response.ts";
+import { OrderRequest, OrderSummaryRequest } from "../../types/orders/orders.request";
+import { Order } from "~~/types/orders/order.model.js";
 
 // Gom dữ liệu mock vào một Object để quản lý cho gọn
 const mockDataOrderPipe: Record<NonNullable<OrderSummaryRequest["date"]>, OrderSummaryResponse> = {
@@ -37,6 +38,119 @@ const mockDataOrderPipe: Record<NonNullable<OrderSummaryRequest["date"]>, OrderS
   ],
 };
 
+export const OrderMockData: Order[] = [
+  {
+    id: 'ORD-001',
+    date: '2026-04-10T08:30:00Z',
+    status: 'completed',
+    amount: 150,
+    currency: 'USD',
+    customerName: 'John Smith',
+    itemsCount: 3,
+    createdAt: '2026-04-10T08:00:00Z',
+    updatedAt: 'today'
+  },
+  {
+    id: 'ORD-002',
+    date: '2026-04-09T10:15:00Z',
+    status: 'completed',
+    amount: 320,
+    currency: 'USD',
+    customerName: 'Emily Johnson',
+    itemsCount: 5,
+    createdAt: '2026-04-09T09:50:00Z',
+    updatedAt: 'week'
+  },
+  {
+    id: 'ORD-003',
+    date: '2026-04-08T14:00:00Z',
+    status: 'completed',
+    amount: 210,
+    currency: 'USD',
+    customerName: 'Michael Brown',
+    itemsCount: 2,
+    createdAt: '2026-04-08T13:30:00Z',
+    updatedAt: 'year'
+  },
+  {
+    id: 'ORD-004',
+    date: '2026-04-07T16:45:00Z',
+    status: 'completed',
+    amount: 99,
+    currency: 'USD',
+    customerName: 'Sarah Davis',
+    itemsCount: 1,
+    createdAt: '2026-04-07T16:00:00Z',
+    updatedAt: 'month'
+  },
+  {
+    id: 'ORD-005',
+    date: '2026-04-06T12:20:00Z',
+    status: 'completed',
+    amount: 450,
+    currency: 'USD',
+    customerName: 'David Wilson',
+    itemsCount: 6,
+    createdAt: '2026-04-06T11:50:00Z',
+    updatedAt: 'today'
+  },
+  {
+    id: 'ORD-006',
+    date: '2026-04-10T08:30:00Z',
+    status: 'completed',
+    amount: 100,
+    currency: 'USD',
+    customerName: 'John Smith',
+    itemsCount: 3,
+    createdAt: '2026-04-10T08:00:00Z',
+    updatedAt: 'today-1'
+  },
+  {
+    id: 'ORD-007',
+    date: '2026-04-09T10:15:00Z',
+    status: 'completed',
+    amount: 220,
+    currency: 'USD',
+    customerName: 'Emily Johnson',
+    itemsCount: 5,
+    createdAt: '2026-04-09T09:50:00Z',
+    updatedAt: 'week-1'
+  },
+  {
+    id: 'ORD-008',
+    date: '2026-04-08T14:00:00Z',
+    status: 'completed',
+    amount: 410,
+    currency: 'USD',
+    customerName: 'Michael Brown',
+    itemsCount: 2,
+    createdAt: '2026-04-08T13:30:00Z',
+    updatedAt: 'year-1'
+  },
+  {
+    id: 'ORD-009',
+    date: '2026-04-07T16:45:00Z',
+    status: 'completed',
+    amount: 120,
+    currency: 'USD',
+    customerName: 'Sarah Davis',
+    itemsCount: 1,
+    createdAt: '2026-04-07T16:00:00Z',
+    updatedAt: 'month-1'
+  },
+  {
+    id: 'ORD-005',
+    date: '2026-04-06T12:20:00Z',
+    status: 'completed',
+    amount: 350,
+    currency: 'USD',
+    customerName: 'David Wilson',
+    itemsCount: 6,
+    createdAt: '2026-04-06T11:50:00Z',
+    updatedAt: 'today-1'
+  }
+]
+
 const mockDataOrderTotal: Record<NonNullable<OrderSummaryRequest["date"]>, number> = {
   today: 275,
   week: 375,
@@ -50,9 +164,27 @@ function getOrderSummary(request: OrderSummaryRequest): OrderSummaryResponse {
 }
 
 function getOrderTotal(request: OrderSummaryRequest): number {
-  console.log('PAYLOAD SERVICE: ', request);
-
   return mockDataOrderTotal[request.date ?? "today"] || 0;
 }
 
-export { getOrderSummary, getOrderTotal };
+function getOrders(request: OrderRequest): OrderResponse {
+  const { date, cate, status } = request;
+
+  console.log('ORDER GET: ', date, cate, status);
+  
+
+  let result = OrderMockData;
+
+  if(date || cate || status) {
+    result = result.filter(item => {
+        return (status && item.status === status) && (date ? item.updatedAt === date : true);
+      })
+  }
+
+  console.log('ORDER GET RESPONE: ', result);
+  
+
+  return result;
+}
+
+export { getOrders, getOrderSummary, getOrderTotal };

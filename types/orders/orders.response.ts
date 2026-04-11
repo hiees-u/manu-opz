@@ -1,5 +1,7 @@
-import type { OrderSummary } from "./order.model";
+import type { OrderSummary, Order } from "./order.model";
 
 type OrderSummaryResponse = OrderSummary[];
 
-export type { OrderSummaryResponse };
+type OrderResponse = Order[];
+
+export type { OrderResponse, OrderSummaryResponse };

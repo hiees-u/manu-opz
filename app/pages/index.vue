@@ -14,6 +14,7 @@
           class="max-w-50"
         />
         <UiSelectorComponent
+          :placeHolder="'All Catrgories'"
           :selecterValue="selecterCategoriesValue"
           :multi-select="true"
           v-model:selected-value="selectedCategories"
@@ -50,9 +51,9 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Daily Revenue"
-          :value="'$48.5'"
+          :value="`$${OrderRevenue.current}`"
           unit="K"
-          :trend="0.3"
+          :trend="OrderRevenue.rate"
           unit-trend="%"
           trend-label="vs yesterday"
           :is-loading="!mounted"
@@ -161,7 +162,7 @@
       <div class="col-span-2 row-span-2">
         <UiOrderPipelineStatusCardComponent
           :is-loading="!mounted"
-          :revenue="revenue"
+          :orderSummaryStatus="orderSummaryStatus"
         />
       </div>
     </div>
@@ -189,7 +190,7 @@ const {
 
 const { selectedDay, selectDateValue } = useDateSelector();
 
-const { revenue, orderTotalSummary } = await useOrderSummary( selectedDay, selectedCategories);
+const { orderSummaryStatus, orderTotalSummary, OrderRevenue } = await useOrderSummary( selectedDay, selectedCategories);
 
 const { data: passRate, colorPass } = await usePassRate(selectedDay, selectedCategories);
 
