@@ -50,7 +50,7 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Daily Revenue"
-          value="$48.5"
+          :value="'$48.5'"
           unit="K"
           :trend="0.3"
           unit-trend="%"
@@ -70,7 +70,7 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="On-time Rate"
-          value="92.2"
+          :value="92.2"
           unit="%"
           :trend="5.7"
           unit-trend="%"
@@ -90,7 +90,7 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Production Output"
-          value="1,235"
+          :value="1.235"
           unit="units"
           :trend="-3.2"
           unit-trend="%"
@@ -110,7 +110,7 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Delayed Orders"
-          value="18"
+          :value="18"
           unit="orders"
           :trend="-3.2"
           unit-trend="%"
@@ -127,7 +127,7 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Defect Rate"
-          value="5.5"
+          :value="5.5"
           unit="%"
           :trend="-15.5"
           unit-trend="%"
