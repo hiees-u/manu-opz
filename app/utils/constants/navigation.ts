@@ -6,13 +6,12 @@ export const navigationItems: NavigationMenuItem[][] = [[
   label: 'Dashboard',
   icon: 'i-lucide-house',
   permission: Permission.Dashboard_View,
-  active: true,
   to: '/'
 }, {
   label: 'Orders',
   icon: 'i-lucide-inbox',
   permission: Permission.Orders_View,
-  active: false,
+  to: '/orders'
 }, {
   label: 'Production',
   permission: Permission.Production_View,
