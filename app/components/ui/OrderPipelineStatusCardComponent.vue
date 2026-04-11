@@ -8,12 +8,12 @@ defineOptions({
 
 interface Props {
   isLoading: boolean;
-  revenue: OrderSummaryResponse;
+  orderSummaryStatus: OrderSummaryResponse;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isLoading: false,
-  revenue: () => [
+  orderSummaryStatus: () => [
     { status: "Success", value: 0 },
     { status: "Processing", value: 0 },
     { status: "QC Check", value: 0 },
@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
   ],
 });
 
-const { revenue } = toRefs(props);
+const { orderSummaryStatus } = toRefs(props);
 
 const RevenueCategories = computed(() => ({
   desktop: {
@@ -32,7 +32,7 @@ const RevenueCategories = computed(() => ({
   },
 }));
 
-const xFormatter = (i: number): string => `${revenue.value[i]?.status}`;
+const xFormatter = (i: number): string => `${orderSummaryStatus.value[i]?.status}`;
 const yFormatter = (tick: number) => tick.toString();
 
 const { isLoading } = toRefs(props);
@@ -43,7 +43,7 @@ const { isLoading } = toRefs(props);
     <template v-if="!isLoading">
       <div class="flex flex-col justify-between w-full h-full">
         <BarChart
-          :data="revenue"
+          :data="orderSummaryStatus"
           :height="200"
           :categories="RevenueCategories"
           :y-axis="['value']"

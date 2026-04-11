@@ -4,7 +4,7 @@ export const useOrderSummary = (
   selectedDay: Ref<SelectorItem | null>,
   selectedCategories: Ref<SelectorItem[]>,
 ) => {
-  const { data: revenue } = useAsyncData(
+  const { data: orderSummaryStatus } = useAsyncData(
     "order-summary",
     () =>
       getOrderSummary({
@@ -18,38 +18,73 @@ export const useOrderSummary = (
     },
   );
 
-  const { data: orderTotalSummary = { currentOrderTotal: 0, orderTotalChangeRate: 0 } } =
-    useAsyncData(
-      "order-total",
-      async () => {
-        const currentOrderTotal =
-          (await getOrderTotal({
-            date: selectedDay.value?.id || "today",
-            cate: "all",
-          })) || 0;
+  const {
+    data: orderTotalSummary = { currentOrderTotal: 0, orderTotalChangeRate: 0 },
+  } = useAsyncData(
+    "order-total",
+    async () => {
+      const currentOrderTotal =
+        (await getOrderTotal({
+          date: selectedDay.value?.id || "today",
+          cate: "all",
+        })) || 0;
 
-        // const oldOrderTotal = await getOrderTotal({
-        //   date: "week",
-        //   cate: "all",
-        // }) || 0;
+      // const oldOrderTotal = await getOrderTotal({
+      //   date: "week",
+      //   cate: "all",
+      // }) || 0;
 
-        const oldOrderTotal = 500; // giả sử giá trị cũ để tính toán
+      const oldOrderTotal = 500; // giả sử giá trị cũ để tính toán
 
-        const orderTotalChangeRate = oldOrderTotal
-          ? ((currentOrderTotal - oldOrderTotal) / oldOrderTotal) * 100
-          : 0;
+      const orderTotalChangeRate = oldOrderTotal
+        ? ((currentOrderTotal - oldOrderTotal) / oldOrderTotal) * 100
+        : 0;
 
-        return { currentOrderTotal, orderTotalChangeRate };
-      },
-      {
-        immediate: true,
-        watch: [selectedDay, selectedCategories],
-        default: () => ({ currentOrderTotal: 0, orderTotalChangeRate: 0 }),
-      },
-    );
+      return { currentOrderTotal, orderTotalChangeRate };
+    },
+    {
+      immediate: true,
+      watch: [selectedDay, selectedCategories],
+      default: () => ({ currentOrderTotal: 0, orderTotalChangeRate: 0 }),
+    },
+  );
+
+  const orderRevenueDate = async (date?: string) => {
+    const orders = await getOrders({
+      status: "completed",
+      date: date ?? selectedDay.value?.id ?? "today",
+    });
+
+    const revenue = orders.reduce((sum, n) => sum + n.amount, 0);
+
+    return revenue;
+  };
+
+  const { data: OrderRevenue } = useAsyncData(
+    "order-revenue",
+    async () => {
+      const currenRevenue = await orderRevenueDate();
+      const oldRevenue = await orderRevenueDate(`${selectedDay.value?.id}-1`);
+
+      const rate = oldRevenue
+        ? Number((((currenRevenue - oldRevenue) / oldRevenue) * 100).toFixed(2))
+        : 0;
+
+      return {
+        current: currenRevenue,
+        rate,
+      };
+    },
+    {
+      immediate: true,
+      watch: [selectedDay, selectedCategories],
+      default: () => ({ current: 1, rate: 1 }),
+    },
+  );
 
   return {
-    revenue,
-    orderTotalSummary
+    orderSummaryStatus,
+    orderTotalSummary,
+    OrderRevenue,
   };
 };

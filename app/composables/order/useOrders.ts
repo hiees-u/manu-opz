@@ -1,6 +1,6 @@
 import { OrdersApi } from "~/services/api/orders.client";
-import type { OrderSummaryRequest } from "~~/types/orders/orders.request"
-import type { OrderSummaryResponse } from "~~/types/orders/orders.response"
+import type { OrderRequest, OrderSummaryRequest } from "~~/types/orders/orders.request"
+import type { OrderResponse, OrderSummaryResponse } from "~~/types/orders/orders.response"
 
 const getOrderSummary = async (payload: OrderSummaryRequest): Promise<OrderSummaryResponse> => {
   const result = (await (OrdersApi.getOrderSummary(payload))).data ?? [];
@@ -12,4 +12,9 @@ const getOrderTotal = async (payload: OrderSummaryRequest): Promise<number> => {
   return result;
 }
 
-export { getOrderSummary, getOrderTotal };
+const getOrders = async (payload: OrderRequest): Promise<OrderResponse> => {
+  const result = ((await (OrdersApi.getOrders(payload))).data ?? [])
+  return result;
+}
+
+export { getOrders, getOrderSummary, getOrderTotal };
