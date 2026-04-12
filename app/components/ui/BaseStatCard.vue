@@ -15,7 +15,7 @@
     <UBadge
       :color="trendColor"
       variant="soft"
-      v-if="trend !== undefined && !isLoading"
+      v-if="trend !== undefined && !isLoading  && !isValueChange"
     >
       <UIcon :name="trendIcon" class="w-4 h-4 mr-1" />
       {{ trendText }}
