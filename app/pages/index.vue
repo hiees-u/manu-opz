@@ -91,9 +91,9 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Production Output"
-          :value="1.235"
+          :value="productOutput.current"
           unit="units"
-          :trend="-3.2"
+          :trend="productOutput.rate"
           unit-trend="%"
           trend-label="vs yesterday"
           :is-loading="!mounted"
@@ -193,6 +193,8 @@ const { selectedDay, selectDateValue } = useDateSelector();
 const { orderSummaryStatus, orderTotalSummary, OrderRevenue } = await useOrderSummary( selectedDay, selectedCategories);
 
 const { data: passRate, colorPass } = await usePassRate(selectedDay, selectedCategories);
+
+const { productOutput } = await useProductOutput(selectedDay, selectedCategories)
 
 onMounted(async () => {
   mounted.value = true;

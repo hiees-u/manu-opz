@@ -2,8 +2,8 @@ import type { Category } from "../../types/category/category.model";
 import type { CategoryRequest } from "../../types/category/category.request";
 
 import type { PassRateModel } from "../../types/products/products.model";
-import type { PassRatteRequest } from "../../types/products/products.request";
-import type { PassRateResponse } from "../../types/products/products.response";
+import type { PassRatteRequest, ProductOutPutRequest } from "../../types/products/products.request";
+import type { PassRateResponse, ProductOutPutResponse } from "../../types/products/products.response";
 
 const CATEGORY: Category[] = [
   {
@@ -215,6 +215,90 @@ const PASS_RATE: PassRateModel[] = [
   { total: 120, pass: 108, passRate: 65, date: 'year', product: 'all' },
 ];
 
+export const PRODUCT_OUTPUT = [
+  // ===== 2026-04-08 =====
+  {
+    id: "p-001",
+    orderId: "order-001",
+    quantity: 15,
+    date: "today-1"
+  },
+  {
+    id: "p-002",
+    orderId: "order-002",
+    quantity: 12,
+    date: "today"
+  },
+
+  // ===== 2026-04-09 =====
+  {
+    id: "p-003",
+    orderId: "order-001",
+    quantity: 17,
+    date: "week-1"
+  },
+  {
+    id: "p-004",
+    orderId: "order-003",
+    quantity: 14,
+    date: "month"
+  },
+
+  // ===== 2026-04-10 =====
+  {
+    id: "p-005",
+    orderId: "order-002",
+    quantity: 16,
+    date: "month-1"
+  },
+  {
+    id: "p-006",
+    orderId: "order-004",
+    quantity: 13,
+    date: "week"
+  },
+
+  // ===== 2026-04-11 =====
+  {
+    id: "p-007",
+    orderId: "order-001",
+    quantity: 18,
+    date: "month"
+  },
+  {
+    id: "p-008",
+    orderId: "order-003",
+    quantity: 11,
+    date: "today"
+  },
+  {
+    id: "p-009",
+    orderId: "order-005",
+    quantity: 19,
+    date: "year-1"
+  },
+
+  // ===== 2026-04-12 =====
+  {
+    id: "p-010",
+    orderId: "order-002",
+    quantity: 14,
+    date: "week"
+  },
+  {
+    id: "p-011",
+    orderId: "order-004",
+    quantity: 16,
+    date: "today"
+  },
+  {
+    id: "p-012",
+    orderId: "order-006",
+    quantity: 20,
+    date: "year"
+  }
+];
+
 const getCategoriesService = (payload: CategoryRequest): Category[] => {
   const { filters = {}, page, cursor, pageSize = 0 } = payload;
   const hasFilters = Object.keys(filters).length > 0;
@@ -265,4 +349,20 @@ const getPassRateService = (payload: PassRatteRequest): PassRateResponse => {
   return filtered;
 };
 
-export { getCategoriesService, getPassRateService };
+const getProductOutput = (payload: ProductOutPutRequest): ProductOutPutResponse => {
+  const { date, cate } = payload;
+
+  let result = PRODUCT_OUTPUT;
+
+  if(date || cate) {
+    result = [];
+    
+    result = PRODUCT_OUTPUT.filter((product) => {
+      return product.date === date
+    })
+  }
+  
+  return result || [];
+}
+
+export { getProductOutput, getCategoriesService, getPassRateService };

@@ -2,4 +2,11 @@ import type { PassRateResponse } from "./products.response";
 
 type PassRateModel = PassRateResponse & { date: string; product: string };
 
-export type { PassRateModel };
+type ProductOutPut = {
+  id: string,
+  orderId: string,
+  quantity: number,
+  date: string
+}
+
+export type { ProductOutPut, PassRateModel };

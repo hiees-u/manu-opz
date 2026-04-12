@@ -1,8 +1,8 @@
 import type { ApiResponse } from "~~/types/api.response";
 import type { CategoryRequest } from "~~/types/category/category.request";
 import type { Category } from "~~/types/category/category.model";
-import type { PassRatteRequest } from "~~/types/products/products.request";
-import type { PassRateResponse } from "~~/types/products/products.response";
+import type { PassRatteRequest, ProductOutPutRequest } from "~~/types/products/products.request";
+import type { PassRateResponse, ProductOutPutResponse } from "~~/types/products/products.response";
 
 export const ProductsApi = {
   getCategorys: async (
@@ -25,4 +25,16 @@ export const ProductsApi = {
 
     return result;
   },
+  getProductsOutPut: async(
+    payload: ProductOutPutRequest
+  ): Promise<ApiResponse<ProductOutPutResponse>> => {
+    const result = await $fetch('/api/products/outPut', {
+      method: 'get',
+      query: {
+        ...payload
+      }
+    })
+
+    return result;
+  }
 };
