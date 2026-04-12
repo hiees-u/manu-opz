@@ -4,7 +4,10 @@
     <p v-if="!isLoading" class="text-lg h-6">{{ title }}</p>
     <USkeleton v-else class="w-2/3 h-6 rounded-lg" />
 
-    <p v-if="!isLoading" class="text-xl font-bold my-2">
+    <p
+      v-if="!isLoading && !isValueChange"
+      class="text-xl font-bold my-1 w-fit p-1"
+    >
       {{ value }} <span class="text-xs">{{ unit }}</span>
     </p>
     <USkeleton v-else class="w-1/2 h-7 rounded-lg my-2" />
@@ -63,6 +66,17 @@ const trendColor = computed(() => {
 const trendText = computed(() => {
   if (trend.value === undefined) return "";
   return `${Math.abs(trend.value!)}${unitTrend.value} ${trendLabel.value}`;
+});
+
+const isValueChange = ref(false);
+
+const onChangeValue = useDebounceFn(() => {
+  isValueChange.value = false;
+}, 300);
+
+watch(value, () => {
+  isValueChange.value = true;
+  onChangeValue();
 });
 </script>
 
