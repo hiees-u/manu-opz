@@ -78,13 +78,45 @@ export const useOrderSummary = (
     {
       immediate: true,
       watch: [selectedDay, selectedCategories],
-      default: () => ({ current: 1, rate: 1 }),
+      default: () => ({ current: 0, rate: 0 }),
     },
+  );
+
+  const orderDelayDate = async (date?: string) => {
+    const orderDelay = await getOrders({
+      status: 'delayed',
+      date: date ?? selectedDay.value?.id ?? 'today'
+    })
+
+    return orderDelay.length;
+  }
+
+  const { data: delayOrder } = useAsyncData(
+    'delay-order',
+    async () => {
+      const currentValue = await orderDelayDate();
+      const oldValue = await orderDelayDate(`${selectedDay.value?.id}-1`);
+
+      const rate = oldValue
+       ? Number((((currentValue - oldValue) / oldValue) *  100).toFixed(2)) 
+       : 0;
+
+      return {
+        current: currentValue,
+        rate
+      }
+    },
+    {
+      immediate: true,
+      watch: [selectedDay, selectedCategories],
+      default: () => ({current: 0, rate: 0})
+    }
   );
 
   return {
     orderSummaryStatus,
     orderTotalSummary,
     OrderRevenue,
+    delayOrder,
   };
 };
