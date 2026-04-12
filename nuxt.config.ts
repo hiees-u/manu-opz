@@ -37,9 +37,9 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4
   },
-  // nitro: {
-  //   preset: 'vercel',
-  // },
+  nitro: {
+    preset: 'vercel',
+  },
   vite: {
     define: {
       __VUE_PROD_DEVTOOLS__: true,
