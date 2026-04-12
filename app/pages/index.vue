@@ -111,9 +111,9 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Delayed Orders"
-          :value="18"
+          :value="delayOrder.current"
           unit="orders"
-          :trend="-3.2"
+          :trend="delayOrder.rate"
           unit-trend="%"
           trend-label="vs yesterday"
           :is-loading="!mounted"
@@ -190,7 +190,7 @@ const {
 
 const { selectedDay, selectDateValue } = useDateSelector();
 
-const { orderSummaryStatus, orderTotalSummary, OrderRevenue } = await useOrderSummary( selectedDay, selectedCategories);
+const { orderSummaryStatus, orderTotalSummary, OrderRevenue, delayOrder } = await useOrderSummary( selectedDay, selectedCategories);
 
 const { data: passRate, colorPass } = await usePassRate(selectedDay, selectedCategories);
 
