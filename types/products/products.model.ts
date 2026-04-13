@@ -6,6 +6,7 @@ type ProductOutPut = {
   id: string,
   orderId: string,
   quantity: number,
+  quantityDefect: number,
   date: string
 }
 

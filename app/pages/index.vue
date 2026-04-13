@@ -128,9 +128,9 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="Defect Rate"
-          :value="5.5"
+          :value="productDefect.current"
           unit="%"
-          :trend="-15.5"
+          :trend="productDefect.rate"
           unit-trend="%"
           trend-label="vs yesterday"
           :is-loading="!mounted"
@@ -190,11 +190,20 @@ const {
 
 const { selectedDay, selectDateValue } = useDateSelector();
 
-const { orderSummaryStatus, orderTotalSummary, OrderRevenue, delayOrder } = await useOrderSummary( selectedDay, selectedCategories);
+const { orderSummaryStatus, orderTotalSummary, OrderRevenue, delayOrder } =
+  await useOrderSummary(selectedDay, selectedCategories);
 
-const { data: passRate, colorPass } = await usePassRate(selectedDay, selectedCategories);
+const { data: passRate, colorPass } = await usePassRate(
+  selectedDay,
+  selectedCategories,
+);
 
-const { productOutput } = await useProductOutput(selectedDay, selectedCategories)
+const { productDefect } = await useDefectRate(selectedDay, selectedCategories);
+
+const { productOutput } = await useProductOutput(
+  selectedDay,
+  selectedCategories,
+);
 
 onMounted(async () => {
   mounted.value = true;
