@@ -215,18 +215,20 @@ const PASS_RATE: PassRateModel[] = [
   { total: 120, pass: 108, passRate: 65, date: 'year', product: 'all' },
 ];
 
-export const PRODUCT_OUTPUT = [
+const PRODUCT_OUTPUT = [
   // ===== 2026-04-08 =====
   {
     id: "p-001",
     orderId: "order-001",
     quantity: 15,
+    quantityDefect: 2,
     date: "today-1"
   },
   {
     id: "p-002",
     orderId: "order-002",
     quantity: 12,
+    quantityDefect: 1,
     date: "today"
   },
 
@@ -235,12 +237,14 @@ export const PRODUCT_OUTPUT = [
     id: "p-003",
     orderId: "order-001",
     quantity: 17,
+    quantityDefect: 3,
     date: "week-1"
   },
   {
     id: "p-004",
     orderId: "order-003",
     quantity: 14,
+    quantityDefect: 2,
     date: "month"
   },
 
@@ -249,12 +253,14 @@ export const PRODUCT_OUTPUT = [
     id: "p-005",
     orderId: "order-002",
     quantity: 16,
+    quantityDefect: 1,
     date: "month-1"
   },
   {
     id: "p-006",
     orderId: "order-004",
     quantity: 13,
+    quantityDefect: 2,
     date: "week"
   },
 
@@ -263,18 +269,21 @@ export const PRODUCT_OUTPUT = [
     id: "p-007",
     orderId: "order-001",
     quantity: 18,
+    quantityDefect: 4,
     date: "month"
   },
   {
     id: "p-008",
     orderId: "order-003",
     quantity: 11,
+    quantityDefect: 1,
     date: "today"
   },
   {
     id: "p-009",
     orderId: "order-005",
     quantity: 19,
+    quantityDefect: 3,
     date: "year-1"
   },
 
@@ -283,18 +292,21 @@ export const PRODUCT_OUTPUT = [
     id: "p-010",
     orderId: "order-002",
     quantity: 14,
+    quantityDefect: 2,
     date: "week"
   },
   {
     id: "p-011",
     orderId: "order-004",
     quantity: 16,
+    quantityDefect: 1,
     date: "today"
   },
   {
     id: "p-012",
     orderId: "order-006",
     quantity: 20,
+    quantityDefect: 2,
     date: "year"
   }
 ];
