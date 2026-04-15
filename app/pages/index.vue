@@ -71,9 +71,9 @@
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
           title="On-time Rate"
-          :value="92.2"
+          :value="onTimeRate?.current"
           unit="%"
-          :trend="5.7"
+          :trend="onTimeRate?.current"
           unit-trend="%"
           trend-label="vs yesterday"
           :is-loading="!mounted"
@@ -190,7 +190,7 @@ const {
 
 const { selectedDay, selectDateValue } = useDateSelector();
 
-const { orderSummaryStatus, orderTotalSummary, OrderRevenue, delayOrder } =
+const { orderSummaryStatus, orderTotalSummary, OrderRevenue, delayOrder, onTimeRate } =
   await useOrderSummary(selectedDay, selectedCategories);
 
 const { data: passRate, colorPass } = await usePassRate(

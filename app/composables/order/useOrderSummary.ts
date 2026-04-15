@@ -91,6 +91,24 @@ export const useOrderSummary = (
     return orderDelay.length;
   }
 
+  const orderCompleteDate = async (date?: string) => {
+    const orderDelay = await getOrders({
+      status: 'completed',
+      date: date ?? selectedDay.value?.id ?? 'today'
+    })
+
+    return orderDelay.length;
+  }
+
+  const getOrderCompleteRate = async (date?: string) => {
+      const orderTotal = await getOrderTotal({
+        date: date ?? selectedDay.value?.id ?? "today",
+        cate: "all",
+      });
+      const orderComplete = await orderCompleteDate(date);
+      return Number(((orderComplete / orderTotal) *  100).toFixed(2));
+  }
+
   const { data: delayOrder } = useAsyncData(
     'delay-order',
     async () => {
@@ -113,10 +131,31 @@ export const useOrderSummary = (
     }
   );
 
+  const { data: onTimeRate } = useAsyncData(
+    'order-on-time',
+    async () => {
+      const currentOrderComplete = await getOrderCompleteRate();
+      const oldOrderComplete = await getOrderCompleteRate(`${selectedDay.value?.id}-1`);
+
+      const rate = oldOrderComplete
+        ? Number(((currentOrderComplete - oldOrderComplete) / oldOrderComplete) * 100).toFixed(2) : 0;
+
+      return {
+        current: currentOrderComplete,
+        rate
+      }
+    },
+    {
+      immediate: true,
+      watch: [selectedDay, selectedCategories],
+      default: () => ({current: 0, rate: 0})
+    }
+  )
   return {
     orderSummaryStatus,
     orderTotalSummary,
     OrderRevenue,
     delayOrder,
+    onTimeRate
   };
 };
