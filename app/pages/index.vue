@@ -144,11 +144,11 @@
       </div>
       <div class="col-span-2 row-span-2">
         <UiOEEOverrideComponent
-          :oee="85"
-          :avail="90"
-          :perf="80"
-          :qual="95"
-          :trend="-2"
+          :oee="oeeSummmary.rate"
+          :avail="oeeSummmary.oee.availability"
+          :perf="oeeSummmary.oee.performance"
+          :qual="oeeSummmary.oee.quality"
+          :trend="oeeSummmary.oldRate"
           :is-loading="!mounted"
         />
       </div>
@@ -190,8 +190,13 @@ const {
 
 const { selectedDay, selectDateValue } = useDateSelector();
 
-const { orderSummaryStatus, orderTotalSummary, OrderRevenue, delayOrder, onTimeRate } =
-  await useOrderSummary(selectedDay, selectedCategories);
+const {
+  orderSummaryStatus,
+  orderTotalSummary,
+  OrderRevenue,
+  delayOrder,
+  onTimeRate,
+} = await useOrderSummary(selectedDay, selectedCategories);
 
 const { data: passRate, colorPass } = await usePassRate(
   selectedDay,
@@ -205,8 +210,13 @@ const { productOutput } = await useProductOutput(
   selectedCategories,
 );
 
+const { oeeSummmary } = await useOeeSummary(selectedDay, selectedCategories);
+
 onMounted(async () => {
   mounted.value = true;
+  console.log(oeeSummmary);
+  console.log(oeeSummmary.value);
+  
 });
 </script>
 
