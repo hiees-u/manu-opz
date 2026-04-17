@@ -25,12 +25,15 @@
 </template>
 
 <script lang="ts" setup>
+import type { BusinessPerformationModel } from '~~/types/metrics/oee.model';
+
 defineOptions({
   tags: ["linecharts", "multilineslinear"],
 });
 
 interface Props {
   isLoading: boolean;
+  chartData: BusinessPerformationModel[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -39,44 +42,44 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { isLoading } = toRefs(props);
 
-const chartData = [
-  {
-    date: "Jan",
-    revenue: 12300,
-    cost: 8000,
-    profit: 3500,
-  },
-  {
-    date: "Feb",
-    revenue: 12800,
-    cost: 9000,
-    profit: 3900,
-  },
-  {
-    date: "Mar",
-    revenue: 12500,
-    cost: 8000,
-    profit: 3900,
-  },
-  {
-    date: "Apr",
-    revenue: 13000,
-    cost: 8200,
-    profit: 4500,
-  },
-  {
-    date: "May",
-    revenue: 13500,
-    cost: 8800,
-    profit: 4800,
-  },
-  {
-    date: "Jun",
-    revenue: 13200,
-    cost: 8400,
-    profit: 4500,
-  },
-];
+// const chartData = [
+//   {
+//     date: "Jan",
+//     revenue: 12300,
+//     cost: 8000,
+//     profit: 3500,
+//   },
+//   {
+//     date: "Feb",
+//     revenue: 12800,
+//     cost: 9000,
+//     profit: 3900,
+//   },
+//   {
+//     date: "Mar",
+//     revenue: 12500,
+//     cost: 8000,
+//     profit: 3900,
+//   },
+//   {
+//     date: "Apr",
+//     revenue: 13000,
+//     cost: 8200,
+//     profit: 4500,
+//   },
+//   {
+//     date: "May",
+//     revenue: 13500,
+//     cost: 8800,
+//     profit: 4800,
+//   },
+//   {
+//     date: "Jun",
+//     revenue: 13200,
+//     cost: 8400,
+//     profit: 4500,
+//   },
+// ];
 
 const categories: Record<string, BulletLegendItemInterface> = {
   revenue: { name: "Revenue", color: "blue" },
@@ -85,7 +88,7 @@ const categories: Record<string, BulletLegendItemInterface> = {
 };
 
 const xFormatter = (tick: number, _i?: number, _ticks?: number[]): string => {
-  return String(chartData[tick]?.date ?? "");
+  return String(props.chartData[tick]?.date ?? "");
 };
 </script>
 

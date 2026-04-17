@@ -33,7 +33,11 @@ const getOee = (request: OeeRequest) => {
 
   const res = date ? OEE.filter((item) => item.date === date) : OEE;
 
-  return res;
+  return {
+    data: res,
+    success: true,
+    message: 'success!!'
+  };
 };
 
 export { getOee };

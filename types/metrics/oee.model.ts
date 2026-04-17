@@ -1,4 +1,4 @@
-export type OeeModel = {
+type OeeModel = {
   date: string;
   oee: {
     availability: number;
@@ -6,3 +6,12 @@ export type OeeModel = {
     quality: number;
   };
 };
+
+type BusinessPerformationModel = {
+  revenue: number;
+  cost: number;
+  profit: number;
+  date: string
+};
+
+export type { OeeModel, BusinessPerformationModel };

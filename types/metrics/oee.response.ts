@@ -1,4 +1,10 @@
-import type { OeeModel } from "./oee.model";
+import type { BusinessPerformationModel, OeeModel } from "./oee.model";
 import type { ApiResponse } from "../api.response";
 
-export type OeeResponse = ApiResponse<OeeModel[] | null>;
+ type OeeResponse = ApiResponse<OeeModel[] | null>;
+ type BusinessPerformanceResponse = ApiResponse<BusinessPerformationModel[]>;
+
+ export type {
+  OeeResponse,
+  BusinessPerformanceResponse
+ }
