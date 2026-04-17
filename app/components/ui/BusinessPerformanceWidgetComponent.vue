@@ -1,9 +1,9 @@
 <template>
   <div>
     <template v-if="isLoading">
-      <div class="mb-4">
-        <USkeleton class="w-1/3 h-6 mb-2 rounded-lg" />
-        <USkeleton class="w-full h-40 rounded-lg" />
+      <div class="mb-4 flex flex-col items-end">
+        <USkeleton class="w-2/5 h-8 mb-2 rounded-lg" />
+        <USkeleton class="w-full h-55 rounded-lg" />
       </div>
     </template>
     <template v-else>
