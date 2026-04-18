@@ -17,7 +17,7 @@
           :multiple="multiSelect"
           class="min-w-32 max-w-full"
           :highlight="false"
-          :search-input="{ placeholder: 'Tìm kiếm sản phẩm...' }"
+          :search-input="{ placeholder: seachInputPlacHolder }"
           :clear="isClearable"
           @update:search-term="onSearch"
           loading-icon="i-lucide-loader"
@@ -46,6 +46,7 @@ const props = withDefaults(
     isLoading?: boolean;
     multiSelect: boolean;
     placeHolder?: string;
+    seachInputPlacHolder?: string;
     isOpenProp?: boolean;
     isClearable?: boolean;
   }>(),
@@ -55,6 +56,7 @@ const props = withDefaults(
     isLoading: false,
     multiSelect: true,
     placeHolder: "All Products...",
+    seachInputPlacHolder: 'Search Categories..',
     isOpenProp: false,
     isClearable: true,
   },

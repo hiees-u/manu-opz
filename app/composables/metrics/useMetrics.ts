@@ -1,5 +1,5 @@
 import { MetricsApi } from "~/services/api/metrics.client";
-import type { OeeModel } from "~~/types/metrics/oee.model";
+import type { BusinessPerformationModel, OeeModel } from "~~/types/metrics/oee.model";
 import type { OeeRequest } from "~~/types/metrics/oee.request";
 
 const getOeeDate = async (paylaoad: OeeRequest):Promise<OeeModel[] | null> => {
@@ -7,4 +7,10 @@ const getOeeDate = async (paylaoad: OeeRequest):Promise<OeeModel[] | null> => {
   return result;
 }
 
-export { getOeeDate }
+const getBusinessPerformation = async (): Promise<BusinessPerformationModel[] | null> => {
+  const result = (await MetricsApi.getMetricsBussinessPerformation()).data;
+
+  return result;
+}
+
+export { getOeeDate, getBusinessPerformation }

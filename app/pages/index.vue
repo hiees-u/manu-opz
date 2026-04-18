@@ -9,6 +9,7 @@
           :selecterValue="selectDateValue"
           :multi-select="false"
           :is-clearable="false"
+          :seach-input-plac-holder="'Search Date'"
           place-holder="Select Day"
           v-model:selected-value="selectedDay"
           class="max-w-50"
@@ -86,7 +87,7 @@
         </UiBaseStatCard>
       </div>
       <div class="col-span-2 row-span-2">
-        <UiBusinessPerformanceWidgetComponent :is-loading="!mounted" />
+        <UiBusinessPerformanceWidgetComponent :chart-data="businessPerformance" :is-loading="!mounted" />
       </div>
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
@@ -211,12 +212,10 @@ const { productOutput } = await useProductOutput(
 );
 
 const { oeeSummmary } = await useOeeSummary(selectedDay, selectedCategories);
+const { businessPerformance } = await useBusinessProductsSummary()
 
 onMounted(async () => {
   mounted.value = true;
-  console.log(oeeSummmary);
-  console.log(oeeSummmary.value);
-  
 });
 </script>
 
