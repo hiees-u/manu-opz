@@ -1,5 +1,5 @@
 export const useBusinessProductsSummary = () => {
-  const { data: businessPerformance } = useAsyncData(
+  const { data: businessPerformance, pending: pendingBusinessPerformance } = useAsyncData(
     "business-performance",
     async () => {
       const businessPerformances = (await getBusinessPerformation()) ?? [];
@@ -35,5 +35,6 @@ export const useBusinessProductsSummary = () => {
 
   return {
     businessPerformance,
+    pendingBusinessPerformance,
   };
 };

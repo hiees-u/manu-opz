@@ -44,7 +44,7 @@ export const useOeeSummary = (
     };
   };
 
-  const { data: oeeSummmary } = useAsyncData(
+  const { data: oeeSummmary, pending: pendingOeeSummary } = useAsyncData(
     "oee-summary",
     async () => await getOeeSummary(),
     {
@@ -64,5 +64,6 @@ export const useOeeSummary = (
 
   return {
     oeeSummmary,
+    pendingOeeSummary,
   };
 };

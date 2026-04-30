@@ -2,7 +2,7 @@ export const usePassRate = (
   selectedDay: Ref<SelectorItem | null>,
   selectedCategories: Ref<SelectorItem[]>,
 ) => {
-  const { data: passRate } = useAsyncData(
+  const { data: passRate, pending: pendingPassRate } = useAsyncData(
     "pass-rate",
     () =>
       getPassRate({
@@ -27,6 +27,7 @@ export const usePassRate = (
 
   return {
     data,
-    colorPass
+    colorPass,
+    pendingPassRate
   };
 };
