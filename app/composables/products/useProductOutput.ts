@@ -10,7 +10,7 @@ export const useProductOutput = (
     return productOutput?.reduce((sum, n) => sum + n.quantity, 0);
   };
 
-  const { data: productOutput } = useAsyncData(
+  const { data: productOutput, pending: pendingProductOutput } = useAsyncData(
     "product-output",
     async () => {
       const current =
@@ -34,5 +34,5 @@ export const useProductOutput = (
     },
   );
 
-  return { productOutput };
+  return { productOutput, pendingProductOutput };
 };

@@ -4,7 +4,7 @@ export const useOrderSummary = (
   selectedDay: Ref<SelectorItem | null>,
   selectedCategories: Ref<SelectorItem[]>,
 ) => {
-  const { data: orderSummaryStatus } = useAsyncData(
+  const { data: orderSummaryStatus, pending: pendingOrderSummaryStatus } = useAsyncData(
     "order-summary",
     () =>
       getOrderSummary({
@@ -19,7 +19,7 @@ export const useOrderSummary = (
   );
 
   const {
-    data: orderTotalSummary = { currentOrderTotal: 0, orderTotalChangeRate: 0 },
+    data: orderTotalSummary = { currentOrderTotal: 0, orderTotalChangeRate: 0 }, pending: pendingOrderTotal
   } = useAsyncData(
     "order-total",
     async () => {
@@ -60,7 +60,7 @@ export const useOrderSummary = (
     return revenue;
   };
 
-  const { data: OrderRevenue } = useAsyncData(
+  const { data: OrderRevenue, pending: pendingOrderRevenue } = useAsyncData(
     "order-revenue",
     async () => {
       const currenRevenue = await orderRevenueDate();
@@ -109,7 +109,7 @@ export const useOrderSummary = (
       return Number(((orderComplete / orderTotal) *  100).toFixed(2));
   }
 
-  const { data: delayOrder } = useAsyncData(
+  const { data: delayOrder, pending: pendingDelayOrder } = useAsyncData(
     'delay-order',
     async () => {
       const currentValue = await orderDelayDate();
@@ -131,7 +131,7 @@ export const useOrderSummary = (
     }
   );
 
-  const { data: onTimeRate } = useAsyncData(
+  const { data: onTimeRate, pending: pendingOnTimeRate } = useAsyncData(
     'order-on-time',
     async () => {
       const currentOrderComplete = await getOrderCompleteRate();
@@ -152,10 +152,25 @@ export const useOrderSummary = (
     }
   )
   return {
-    orderSummaryStatus,
-    orderTotalSummary,
-    OrderRevenue,
-    delayOrder,
-    onTimeRate
+    orderSummary: {
+      data: orderSummaryStatus,
+      pending: pendingOrderSummaryStatus
+    },
+    orderTotal: {
+      data: orderTotalSummary,
+      pending: pendingOrderTotal
+    },
+    OrderRevenue: {
+      data: OrderRevenue,
+      pending: pendingOrderRevenue
+    },
+    delayOrder: {
+      data: delayOrder,
+      pending: pendingDelayOrder
+    },
+    onTimeRate: {
+      data: onTimeRate,
+      pending: pendingOnTimeRate
+    }
   };
 };

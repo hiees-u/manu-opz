@@ -13,7 +13,7 @@ export const useDefectRate = (
     );
   };
 
-  const { data: productDefect } = useAsyncData(
+  const { data: productDefect, pending: pendingDefect } = useAsyncData(
     "products-defect",
     async () => {
       const currentDefectRate =
@@ -43,5 +43,5 @@ export const useDefectRate = (
     },
   );
 
-  return { productDefect };
+  return { productDefect, pendingDefect };
 };

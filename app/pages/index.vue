@@ -40,7 +40,7 @@
           :trend="orderTotalSummary.orderTotalChangeRate"
           unit-trend="%"
           trend-label="vs yesterday"
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
         >
           <template #icon>
             <UBadge color="success" variant="soft">
@@ -57,7 +57,7 @@
           :trend="OrderRevenue.rate"
           unit-trend="%"
           trend-label="vs yesterday"
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
         >
           <template #icon>
             <UBadge color="warning" variant="soft">
@@ -77,7 +77,7 @@
           :trend="onTimeRate?.current"
           unit-trend="%"
           trend-label="vs yesterday"
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
         >
           <template #icon>
             <UBadge color="success" variant="soft">
@@ -87,7 +87,10 @@
         </UiBaseStatCard>
       </div>
       <div class="col-span-2 row-span-2">
-        <UiBusinessPerformanceWidgetComponent :chart-data="businessPerformance" :is-loading="!mounted" />
+        <UiBusinessPerformanceWidgetComponent
+          :chart-data="businessPerformance"
+          :is-loading="!mounted"
+        />
       </div>
       <div class="col-span-1 row-span-1">
         <UiBaseStatCard
@@ -97,7 +100,7 @@
           :trend="productOutput.rate"
           unit-trend="%"
           trend-label="vs yesterday"
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
         >
           <template #icon>
             <UBadge color="success" variant="soft">
@@ -117,7 +120,7 @@
           :trend="delayOrder.rate"
           unit-trend="%"
           trend-label="vs yesterday"
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
         >
           <template #icon>
             <UBadge color="error" variant="soft">
@@ -134,7 +137,7 @@
           :trend="productDefect.rate"
           unit-trend="%"
           trend-label="vs yesterday"
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
         >
           <template #icon>
             <UBadge color="warning" variant="soft">
@@ -150,19 +153,19 @@
           :perf="oeeSummmary.oee.performance"
           :qual="oeeSummmary.oee.quality"
           :trend="oeeSummmary.oldRate"
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
         />
       </div>
       <div class="col-span-1 row-span-2">
         <UiPassRateGaugeComponent
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
           :processing="passRate"
           :colorPass="colorPass"
         />
       </div>
       <div class="col-span-2 row-span-2">
         <UiOrderPipelineStatusCardComponent
-          :is-loading="!mounted"
+          :is-loading="!mounted || !isSummaryLoading"
           :orderSummaryStatus="orderSummaryStatus"
         />
       </div>
@@ -192,27 +195,52 @@ const {
 const { selectedDay, selectDateValue } = useDateSelector();
 
 const {
-  orderSummaryStatus,
-  orderTotalSummary,
-  OrderRevenue,
-  delayOrder,
-  onTimeRate,
+  orderSummary: {
+    data: orderSummaryStatus,
+    pending: pendingOrderSummaryStatus,
+  },
+  orderTotal: { data: orderTotalSummary, pending: pendingOrderTotal },
+  OrderRevenue: { data: OrderRevenue, pending: pendingOrderRevenue },
+  delayOrder: { data: delayOrder, pending: pendingDelayOrder },
+  onTimeRate: { data: onTimeRate, pending: pendingOnTimeRate },
 } = await useOrderSummary(selectedDay, selectedCategories);
 
-const { data: passRate, colorPass } = await usePassRate(
+const {
+  data: passRate,
+  colorPass,
+  pendingPassRate,
+} = await usePassRate(selectedDay, selectedCategories);
+
+const { productDefect, pendingDefect } = await useDefectRate(
   selectedDay,
   selectedCategories,
 );
 
-const { productDefect } = await useDefectRate(selectedDay, selectedCategories);
-
-const { productOutput } = await useProductOutput(
+const { productOutput, pendingProductOutput } = await useProductOutput(
   selectedDay,
   selectedCategories,
 );
 
-const { oeeSummmary } = await useOeeSummary(selectedDay, selectedCategories);
-const { businessPerformance } = await useBusinessProductsSummary()
+const { oeeSummmary, pendingOeeSummary } = await useOeeSummary(
+  selectedDay,
+  selectedCategories,
+);
+const { businessPerformance, pendingBusinessPerformance } =
+  await useBusinessProductsSummary();
+
+const isSummaryLoading = computed(
+  () =>
+    pendingDefect ||
+    pendingBusinessPerformance ||
+    pendingProductOutput ||
+    pendingOeeSummary ||
+    pendingOrderSummaryStatus ||
+    pendingOrderTotal ||
+    pendingOrderRevenue ||
+    pendingDelayOrder ||
+    pendingOnTimeRate ||
+    pendingPassRate,
+);
 
 onMounted(async () => {
   mounted.value = true;
